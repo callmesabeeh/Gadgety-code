@@ -8,6 +8,26 @@ const axios = require('axios');
 const FormData = require('form-data');
 const FileType = require('file-type'); // Install this: npm install file-type
 const sharp = require('sharp'); // Install this: npm install sharp
+const mongoose = require('mongoose');
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const projectSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    price: String,
+    discountedPrice: String,
+    date: String,
+    image: String,
+    url: String,
+    additionalImages: [String],
+});
+
+const Project = mongoose.model('Project', projectSchema);
 
 const app = express();
 app.use(cors());
@@ -21,8 +41,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Path to the projects JSON file
-const projectsFile = 'data/productsData.json';
+
 
 // Utility function to generate URL-friendly slugs
 function generateSlug(title) {
@@ -64,7 +83,7 @@ async function validateAndReencodeImage(file) {
 // Function to upload image to ImgBB
 async function uploadToImgBB(file) {
     try {
-        const apiKey = '5241ba333f63944be333c131617f77f6'; // Set your ImgBB API key in environment variable
+        const apiKey = process.env.IMGBB_API_KEY;
         if (!apiKey) throw new Error('IMGBB_API_KEY environment variable not set.');
 
         // Validate and re-encode the image if necessary
@@ -110,7 +129,7 @@ app.post('/upload', upload.array('images'), async (req, res) => {
                 try {
                     const imgbbUrl = await uploadToImgBB(file);
                     images.push(imgbbUrl);
-                    await delay(1000); // 1-second delay between each upload
+                    await delay(1000);
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -121,8 +140,7 @@ app.post('/upload', upload.array('images'), async (req, res) => {
         const mainImage = req.files.find(file => file.originalname.toLowerCase().includes('main'));
         const mainImageUrl = mainImage ? await uploadToImgBB(mainImage) : images[0];
 
-        const newProject = {
-            id: Date.now(),
+        const newProject = new Project({
             title: req.body.title,
             description: req.body.description,
             price: req.body.price,
@@ -131,20 +149,9 @@ app.post('/upload', upload.array('images'), async (req, res) => {
             image: mainImageUrl,
             url: slug,
             additionalImages: images,
-        };
+        });
 
-        // Read the current projects data
-        let projects = [];
-        if (fs.existsSync(projectsFile)) {
-            const data = fs.readFileSync(projectsFile, 'utf-8');
-            projects = JSON.parse(data); // Parse the JSON data
-        }
-
-        // Add the new project
-        projects.push(newProject);
-
-        // Write back the updated projects array to the file
-        fs.writeFileSync(projectsFile, JSON.stringify(projects, null, 2));
+        await newProject.save();
 
         res.status(200).send('Project uploaded successfully!');
     } catch (error) {
@@ -155,11 +162,9 @@ app.post('/upload', upload.array('images'), async (req, res) => {
 
 
 // Get all projects
-app.get('/projects', (req, res) => {
+app.get('/projects', async (req, res) => {
     try {
-        if (!fs.existsSync(projectsFile)) return res.json([]);
-        const data = fs.readFileSync(projectsFile, 'utf-8');
-        const projects = JSON.parse(data);
+        const projects = await Project.find();
         res.json(projects);
     } catch (error) {
         res.status(500).send('Error reading projects data');
@@ -167,12 +172,9 @@ app.get('/projects', (req, res) => {
 });
 
 // Get a single project by ID
-app.get('/projects/:id', (req, res) => {
+app.get('/projects/:id', async (req, res) => {
     try {
-        if (!fs.existsSync(projectsFile)) return res.status(404).send('Not found');
-        const data = fs.readFileSync(projectsFile, 'utf-8');
-        const projects = JSON.parse(data);
-        const project = projects.find(p => p.id == req.params.id);
+        const project = await Project.findById(req.params.id);
         if (!project) return res.status(404).send('Not found');
         res.json(project);
     } catch (error) {
@@ -181,38 +183,30 @@ app.get('/projects/:id', (req, res) => {
 });
 
 // Update a project by ID
-app.put('/projects/:id', (req, res) => {
+app.put('/projects/:id', async (req, res) => {
     try {
-        if (!fs.existsSync(projectsFile)) return res.status(404).send('Not found');
-        const data = fs.readFileSync(projectsFile, 'utf-8');
-        let projects = JSON.parse(data);
-        const idx = projects.findIndex(p => p.id == req.params.id);
-        if (idx === -1) return res.status(404).send('Not found');
-        // Update fields
-        projects[idx] = { ...projects[idx], ...req.body };
-        fs.writeFileSync(projectsFile, JSON.stringify(projects, null, 2));
-        res.json(projects[idx]);
+        const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedProject) return res.status(404).send('Not found');
+        res.json(updatedProject);
     } catch (error) {
         res.status(500).send('Error updating project');
     }
 });
 
 // Delete a project by ID
-app.delete('/projects/:id', (req, res) => {
+app.delete('/projects/:id', async (req, res) => {
     try {
-        if (!fs.existsSync(projectsFile)) return res.status(404).send('Not found');
-        const data = fs.readFileSync(projectsFile, 'utf-8');
-        let projects = JSON.parse(data);
-        const idx = projects.findIndex(p => p.id == req.params.id);
-        if (idx === -1) return res.status(404).send('Not found');
-        const deleted = projects.splice(idx, 1);
-        fs.writeFileSync(projectsFile, JSON.stringify(projects, null, 2));
-        res.json(deleted[0]);
+        const deletedProject = await Project.findByIdAndDelete(req.params.id);
+        if (!deletedProject) return res.status(404).send('Not found');
+        res.json(deletedProject);
     } catch (error) {
         res.status(500).send('Error deleting project');
     }
 });
 
-app.listen(5000, () => {
-    console.log('Server is running on http://localhost:5000');
-});
+
+// For Vercel compatibility, export the app instead of listening on a port
+    
+
+// For Vercel compatibility, export the app instead of listening on a port
+module.exports = app;
