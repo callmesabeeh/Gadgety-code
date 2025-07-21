@@ -121,6 +121,16 @@
 
     // Edit project (fetch and fill form)
     window.editProject = async function(id) {
+        window.deleteProject = async function(id) {
+      
+        const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            
+            fetchProjects();
+        } else {
+            alert('Error deleting project');
+        }
+    };
         const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${id}`);
         if (!res.ok) return alert('Project not found');
         const project = await res.json();
