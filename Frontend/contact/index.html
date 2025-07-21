@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Gadgety</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- poppins font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> 
+
+
+</head>
+<body>
+
+    <!-- mob menu  -->
+     <div class="mob-menu-overlay"></div>
+    <div class="mob-menu">
+        <i class="fa-solid fa-close"></i>
+        <ul>
+            <a  href="/"><li>Home</li></a>
+            <a href="/products"><li>Products</li></a>
+            <!-- <a href="/login"><li>Account</li></a> -->
+            <a href="/contact"><li class="active">Contact Us</li></a>
+        </ul>
+    </div>
+
+    <!-- container  -->
+
+    <div class="container">
+        <header>
+            <a href="/" class="logo-link">
+                <div class="logo">
+                    <h1>Gadgety.pk</h1>
+                    <p>The name of trust</p>
+                    
+                </div>
+            </a>
+            <div class="icons">
+                <a href="/cart"><i style="color: white;" class="fa-solid fa-cart-shopping"></i><span>0</span></a>
+            <i class="fa-solid fa-bars"></i>
+            </div>
+        </header>
+        
+        <div class="navContainer">
+            <ul class="menu-links">
+                <a  href="/"><li>Home</li></a>
+                <a href="/products"><li>Products</li></a>
+                <!-- <a href="/login"><li>Account</li></a> -->
+                <a href="/contact"><li class="active">Contact Us</li></a>
+            </ul>
+            
+
+        </div>
+        
+        <div class="content">
+            <section>
+                <div class="contactSection">
+                    <h1>Contact US</h1>
+                    <form id="contact-form">
+                        <input type="text" name="name" id="name" placeholder="NAME" required>
+                        <input type="text" name="lastName" id="lastName" placeholder="LAST NAME" required>
+                        <input type="email" name="email" id="email" placeholder="EMAIL" required>
+                        <input type="tel" name="phone" id="phone" placeholder="MOBILE" required>
+                        <textarea name="msg" id="msg" placeholder="MESSAGE" required></textarea>
+                        <input type="submit" title="SUBMIT" value="SUBMIT">
+                    </form>
+                </div>
+                <div class="socialSection">
+                    <div class="get-in-touch">
+                        <i class="fa-solid fa-phone"></i>
+                        <h2>Get in Touch</h2>
+                        <p>+923345277759</p>
+                        <p>abbadalisiddiqui@gmail.com</p>
+                    </div>
+
+                    <a target="_blank" href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr" class="socialLink">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a target="_blank" href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz" class="socialLink">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a target="_blank" href="https://wa.link/9pvx53" class="socialLink">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="footer">
+    
+            
+            <div class="footer-content">
+             
+                <div class="col-2">
+                    <h5>Support</h5>
+                    <p>Shop # 75 , 76 imperial market,Liaquat Rd، Nanakpura, Rawalpindi, Pakistan.</p>
+                    <p>abbadalisiddiqui@gmail.com</p>
+                    <p>051-5774037</p>
+                    <p>+92-334-5277759</p>
+                </div>
+                <div class="col-3">
+                    <h5>Account</h5>
+               
+                    <a href="/cart"><p>Cart</p></a>
+                    <a href="/products"><p>Products</p></a>
+                </div>
+                <div class="col-4">
+                    <h5>Quick Link</h5>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><p>Instagram</p></a>
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><p>Facebook</p></a>
+                    <a href="https://wa.link/9pvx53"><p>Whatsapp</p></a>
+                    <a href="/contact"><p>Contact</p></a>
+                </div>
+                <div class="social-col">
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.link/9pvx53"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="copyright"><i class="fa-regular fa-copyright"></i> Copyright Usman Traders 2025. All Rights Reserved</div>
+        </div>
+          </footer>
+    </div>
+    
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var msg = document.getElementById('msg').value;
+        var whatsappNumber = '+923228435204'; // Your WhatsApp number without +
+        var text =
+          'Name: ' + name + '%0A' +
+          'Last Name: ' + lastName + '%0A' +
+          'Email: ' + email + '%0A' +
+          'Mobile: ' + phone + '%0A' +
+          'Message: ' + msg;
+        var url = 'https://wa.me/' + whatsappNumber + '?text=' + text;
+        window.open(url, '_blank');
+      });
+    </script>
+    <script src="/script.js"></script>
+    <script src="/assets/js/cart.js"></script>
+</body>
+</html>

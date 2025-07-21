@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Gadgety</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- poppins font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> 
+
+<style> 
+    .fa-cart-shopping + span{
+        top: -5px;
+        right:  -5px;
+        font-size: 1.1rem;
+        width: 1.3rem;
+        height: 1.3rem;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.139);
+    }
+</style>
+</head>
+<body>
+
+    <!-- mob menu  -->
+     <div class="mob-menu-overlay"></div>
+    <div class="mob-menu">
+        <i class="fa-solid fa-close"></i>
+        <ul>
+            <a  href="/"><li>Home</li></a>
+            <a href="/products"><li>Products</li></a>
+            <!-- <a href="/login"><li>Account</li></a> -->
+            <a href="/contact"><li>Contact Us</li></a>
+        </ul>
+    </div>
+
+    <!-- container  -->
+
+    <div class="container">
+        <header>
+            <a href="/" class="logo-link">
+                <div class="logo">
+                    <h1>Gadgety.pk</h1>
+                    <p>The name of trust</p>
+                    
+                </div>
+            </a>
+            <div class="icons">
+                <a href="/cart"><i class="fa-solid fa-cart-shopping"></i><span>0</span></a>
+            <i class="fa-solid fa-bars"></i>
+            </div>
+        </header>
+        
+        <div class="navContainer">
+            <ul class="menu-links">
+                <a  href="/"><li>Home</li></a>
+                <a href="/products"><li>Products</li></a>
+                <!-- <a href="/login"><li>Account</li></a> -->
+                <a href="/contact"><li>Contact Us</li></a>
+            </ul>
+            
+
+        </div>
+        
+        <div class="content">
+            <h1>Cart</h1>
+            <section>
+                <div class="cartList">
+                    <h3>Empty Cart</h3>
+                </div>
+                
+                <div class="checkout">
+                    <h4>Total</h4>
+                    <hr>
+                    <span class="subTotal">
+                        <h5>Sub Total</h5>
+                        <p>PKR 500</p>
+                    </span>
+                    <span class="delivery">
+                        <h5>Delivery</h5>
+                        <p>PKR 250</p>
+                    </span>
+                    <button id="sendCartToWhatsAppBtn" class="checkoutBtn whatsapp-btn">
+                        <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+                        <span class="whatsapp-text">Check Out</span>
+                    </button>
+</head>
+<style> 
+    .whatsapp-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6em;
+    }
+    .whatsapp-icon {
+        font-size: 2em;
+        vertical-align: middle;
+        line-height: 1;
+    }
+    .whatsapp-text {
+        font-size: 1.1em;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+</style>
+                </div>
+            </section>
+            
+        </div>
+       <footer>
+            <div class="footer">
+    
+            
+            <div class="footer-content">
+             
+                <div class="col-2">
+                    <h5>Support</h5>
+                    <p>Shop # 75 , 76 imperial market,Liaquat Rd، Nanakpura, Rawalpindi, Pakistan.</p>
+                    <p>abbadalisiddiqui@gmail.com</p>
+                    <p>051-5774037</p>
+                    <p>+92-334-5277759</p>
+                </div>
+                <div class="col-3">
+                    <h5>Account</h5>
+               
+                    <a href="/cart"><p>Cart</p></a>
+                    <a href="/products"><p>Products</p></a>
+                </div>
+                <div class="col-4">
+                    <h5>Quick Link</h5>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><p>Instagram</p></a>
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><p>Facebook</p></a>
+                    <a href="https://wa.link/9pvx53"><p>Whatsapp</p></a>
+                    <a href="/contact"><p>Contact</p></a>
+                </div>
+                <div class="social-col">
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.link/9pvx53"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="copyright"><i class="fa-regular fa-copyright"></i> Copyright Usman Traders 2025. All Rights Reserved</div>
+        </div>
+          </footer>
+
+    </div>
+    
+    <script src="/script.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/cart_to_html.js"></script>
+    <script src="/assets/js/quantity_control.js"></script>
+    <script>
+    // Ensure WhatsApp button always works
+    document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('sendCartToWhatsAppBtn');
+        if (btn) {
+            btn.onclick = function() { sendCartToWhatsApp(); };
+        }
+    });
+    </script>
+</body>
+</html>

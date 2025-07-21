@@ -1,0 +1,236 @@
+/* Make placeholder text white for all inputs and textarea */
+form input::placeholder, form textarea::placeholder {
+  color: white;
+  opacity: 1;
+}
+body{
+    background-color: #e5e5e5;
+    
+}
+.navContainer li, .menu-links li, .mob-menu ul li {
+    color: #FFFBDE !important;
+}
+.content *{
+    font-family: poppins;
+    font-weight: 400;
+}
+.content{
+    display: flex;
+    justify-content: center;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 95vw;
+    /* border: 1px solid black; */
+    max-width: 1600px;
+    margin: 3rem 0;
+}
+section div{
+    width: 50vw;
+}
+.contactSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.contactSection h1{
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #FFFBDE;
+    font-size: 2.3rem;
+    text-align: center;
+}
+.container{
+    /* background-color: #91C8E4; */
+background: radial-gradient(39.1% 83.21% at 57.45% 46.9%, rgba(88, 85, 85, 0) 0%, rgba(0, 0, 0, 0) 35.5%, rgba(0, 0, 0, 0.2) 100%), #749BC2;
+
+}
+.contactSection form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.7rem;
+    width: 80%;
+}
+form input:not(input[type="submit"]) , form textarea{
+  
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional subtle border */
+  backdrop-filter: blur(10px); /* Glossy blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 12px; /* Rounded corners for better look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional depth */
+  
+  color: white; /* For light-on-dark UI */
+
+
+   
+    border: 0;
+    padding: 0.5rem 1rem;
+
+    width: 100%;
+    transition: 0.2s all ease;
+}
+form input:not(input[type="submit"]):focus , form textarea:hover{
+    background-color: #d3d3d3;
+}
+input, textarea{
+    outline: none;
+}
+form textarea{
+    height: 10rem;
+}
+
+form input[type="submit"]{
+    width: 50%;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 0;
+    background-color: #749BC2;
+    border: 0;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+form input[type="submit"]:hover{
+    background-color: #3a3a3a;
+}
+
+.socialSection{
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-basis: 50%; */
+    gap: 4rem;
+}
+
+.socialSection div, .socialSection a{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:0.2rem;
+    width: 40%;
+    height: 12rem;
+    border-radius: 1.7rem;
+    max-width: 40%;
+   text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional subtle border */
+  backdrop-filter: blur(10px); /* Glossy blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 12px; /* Rounded corners for better look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional depth */
+  
+
+
+}
+
+
+.socialSection i{
+    font-size: 7rem;
+    color: #FFFBDE;
+    transition: 0.2s all ease;
+}
+
+.socialLink {
+    cursor: pointer;
+}
+.socialLink:hover i{
+    color: #3a3a3a;
+}
+
+.socialSection .get-in-touch i{
+    color: #FFFBDE;
+    font-size: 2.5rem;
+}
+.socialSection .get-in-touch h2{
+    font-size: 1.3em;
+    color: #FFFBDE;
+    font-weight: bolder;
+}
+.socialSection .get-in-touch p{
+    color: #FFFBDE;
+    font-size: 0.75rem;
+}
+
+@media screen and (max-width: 900px) {
+    .socialSection{
+        gap: 3rem;
+    }
+    .socialSection i{
+        font-size: 5rem;
+    }
+    .socialSection div, .socialSection a{
+        height: 10rem;
+    }
+    .socialSection .get-in-touch h2{
+        font-size: 1em;
+    }
+    .socialSection .get-in-touch p{
+        font-size: 0.6rem;
+    }
+    .socialSection .get-in-touch i{
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section{
+        flex-direction: column;
+        width: 100vw;
+    }
+    .contactSection h1{
+        font-size: 1.9rem;
+    }
+    .contactSection{
+        width: 100%;
+    }
+    .contactSection form{
+        width: 86%;
+    }
+    .socialSection{
+     width: 95%;
+     align-items: center;
+     flex-direction: column;
+
+    }
+    .socialSection div, .socialSection a{
+        width: 90%;
+        max-width: 90%;
+        max-width: 300px;
+    }
+
+    .socialSection .get-in-touch h2{
+        font-size: 1em;
+    }
+    .socialSection .get-in-touch p{
+        font-size: 0.8rem;
+    }
+    .socialSection .get-in-touch i{
+        font-size: 2rem;
+    }
+
+}
+
+footer {
+  background-color: #4682A9;
+}
+
+.footer {
+  background-color: #4682A9;
+}
+
+.footer input {
+  background-color: white;
+}

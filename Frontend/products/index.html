@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Gadgety</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- poppins font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"> 
+
+<!-- inter font  -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- mob menu  -->
+     <div class="mob-menu-overlay"></div>
+    <div class="mob-menu">
+        <i class="fa-solid fa-close"></i>
+        <ul>
+            <a  href="/"><li>Home</li></a>
+            <a href="/products"><li  class="active">Products</li></a>
+            <!-- <a href="/login"><li>Account</li></a> -->
+            <a href="/contact"><li>Contact Us</li></a>
+        </ul>
+    </div>
+
+    <!-- container  -->
+
+    <div class="container">
+        <header>
+            <a href="/" class="logo-link">
+                <div class="logo">
+                    <h1>Gadgety.pk</h1>
+                    <p>The name of trust</p>
+                    
+                </div>
+            </a>
+            <div class="icons">
+          
+            <a href="/cart"><i style="color: white;" class="fa-solid fa-cart-shopping"></i><span>0</span></a>
+            <i class="fa-solid fa-bars"></i>
+            </div>
+        </header>
+        
+        <div class="navContainer">
+            <ul class="menu-links">
+                <a  href="/"><li>Home</li></a>
+                <a href="/products"><li class="active">Products</li></a>
+                <!-- <a href="/login"><li>Account</li></a> -->
+                <a href="/contact"><li>Contact Us</li></a>
+            </ul>
+            
+
+        </div>
+        
+        <div class="content">
+            <h2>Where Ideas Fill Your Cart</h2>
+
+            <section class="product-slider-section">
+
+                <div class="today">Today's</div>
+
+                <div class="sales-row">
+                    <div class="sales">
+                        <h3>Flash Sales</h3>
+                      
+                    </div>
+                    <div class="slider-btn">
+                        <div class="back" onclick="leftScroll()">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <div class="forward" onclick="rightScroll()">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-products">
+                    
+                    
+                   
+                    
+                    
+                </div>
+
+            </section>
+       
+            <section class="all-products-section">
+                <h2>Latest Collection</h2>
+                <div class="search-bar" style="display: flex; justify-content: center; margin: 2rem 0;">
+                    <input type="text" id="product-search" placeholder="Search products..." style="padding: 0.7rem 1.2rem; font-size: 1rem; border-radius: 0.5rem; border: 1px solid #ccc; width: 60%; max-width: 400px;" >
+                    <span style="position: relative; left: -2.5rem; top: 0.2rem; color: #888; pointer-events: none;">
+                        <i class="fa-solid fa-search" style="position: absolute; top: 50%; left: 0; transform: translateY(-55%); color: #888; pointer-events: none;"></i>
+                    </span>
+                  </div>
+
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                  <div class="sort">
+                      <p>Sort by Price</p>
+                      <i class="fa-solid fa-sort"></i>
+                  </div>
+                  <select id="category-select" style="padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #ccc;">
+                    <option value="all">All Categories</option>
+                  </select>
+                </div>
+
+                <div class="all-products">
+
+                    <div class="product">
+                        <div class="product-img">
+                            <span class="discount">-40%</span>
+                            <div class="icons">
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                           
+                        </div>
+                        <p class="product-name">
+                            HAVIT HV-G92 Gamepad
+                        </p>
+                        <p class="product-price">$120 <s>$160</s></p>
+                        <!-- rating span removed -->
+                    </div>
+                    <div class="product">
+                        <div class="product-img">
+                            <span class="discount">-40%</span>
+                            <div class="icons">
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <button class="add-to-cart">Add To Cart</button>
+                        </div>
+                        <p class="product-name">
+                            HAVIT HV-G92 Gamepad
+                        </p>
+                        <p class="product-price">$120 <s>$160</s></p>
+                        <!-- rating span removed -->
+                    </div>
+                    <div class="product">
+                        <div class="product-img">
+                            <span class="discount">-40%</span>
+                            <div class="icons">
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <button class="add-to-cart">Add To Cart</button>
+                        </div>
+                        <p class="product-name">
+                            HAVIT HV-G92 Gamepad
+                        </p>
+                        <p class="product-price">$120 <s>$160</s></p>
+                        <!-- rating span removed -->
+                    </div>
+                    <div class="product">
+                        <div class="product-img">
+                            <span class="discount">-40%</span>
+                            <div class="icons">
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <button class="add-to-cart">Add To Cart</button>
+                        </div>
+                        <p class="product-name">
+                            HAVIT HV-G92 Gamepad
+                        </p>
+                        <p class="product-price">$120 <s>$160</s></p>
+                        <!-- rating span removed -->
+                    </div>
+                    <div class="product">
+                        <div class="product-img">
+                            <span class="discount">-40%</span>
+                            <div class="icons">
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <button class="add-to-cart">Add To Cart</button>
+                        </div>
+                        <p class="product-name">
+                            HAVIT HV-G92 Gamepad
+                        </p>
+                        <p class="product-price">$120 <s>$160</s></p>
+                        <!-- rating span removed -->
+                    </div>
+
+                </div>
+
+                <div class="services">
+                    <div class="service">
+                        <span>
+                            <i class="fa-solid fa-truck"></i>
+                        </span>
+                        <h4>Free and Fast Delivery</h4>
+                        <p>Fast delivery for all orders </p>
+                    </div>
+                    <div class="service">
+                        <span>
+                            <i class="fa-solid fa-headphones"></i>
+                        </span>
+                        <h4>24/7 Customer Service</h4>
+                        <p>Friendly 24/7 customer support</p>
+                    </div>
+                    <div class="service">
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                        <h4>Money Back Gurantee</h4>
+                        <p>We return money within 7 days</p>
+                    </div>
+                </div>
+
+            </section>
+            
+        </div>
+        <footer>
+            <div class="footer">
+    
+            
+            <div class="footer-content">
+             
+                <div class="col-2">
+                    <h5>Support</h5>
+                    <p>Shop # 75 , 76 imperial market,Liaquat Rd، Nanakpura, Rawalpindi, Pakistan.</p>
+                    <p>abbadalisiddiqui@gmail.com</p>
+                    <p>051-5774037</p>
+                    <p>+92-334-5277759</p>
+                </div>
+                <div class="col-3">
+                    <h5>Account</h5>
+               
+                    <a href="/cart"><p>Cart</p></a>
+                    <a href="/products"><p>Products</p></a>
+                </div>
+                <div class="col-4">
+                    <h5>Quick Link</h5>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><p>Instagram</p></a>
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><p>Facebook</p></a>
+                    <a href="https://wa.link/9pvx53"><p>Whatsapp</p></a>
+                    <a href="/contact"><p>Contact</p></a>
+                </div>
+                <div class="social-col">
+                    <a href="https://www.facebook.com/share/1B5c4ZbZ4j/?mibextid=wwXIfr"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/usmantraders75?igsh=aHFxYXM1OTBrbXlz"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.link/9pvx53"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="copyright"><i class="fa-regular fa-copyright"></i> Copyright Usman Traders 2025. All Rights Reserved</div>
+        </div>
+          </footer>
+    </div>
+
+    <script>
+    // Fetch categories from JSON and populate select
+    async function populateCategories() {
+        try {
+            const res = await fetch('http://localhost:5000/projects');
+            const projects = await res.json();
+            const categories = Array.from(new Set(projects.map(p => p.category).filter(Boolean)));
+            const select = document.getElementById('category-select');
+            // Remove old options except 'all'
+            select.innerHTML = '<option value="all">All Categories</option>';
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                select.appendChild(option);
+            });
+        } catch (err) {
+            console.error('Failed to load categories:', err);
+        }
+    }
+    populateCategories();
+    </script>
+    
+    <script src="/script.js"></script>
+    <script src="/assets/js/products.js"></script>
+    <script src="/assets/js/cart.js"></script>
+</body>
+</html>

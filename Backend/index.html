@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Project</title>
+</head>
+<body>
+    <title>Project CRUD Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
+        h1 { color: #333; }
+        .container { background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; max-width: 800px; margin: auto; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 8px 16px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; margin-right: 8px; }
+        button.delete { background: #dc3545; }
+        .project-list { margin-top: 32px; }
+        .project { background: #f1f1f1; padding: 16px; border-radius: 6px; margin-bottom: 12px; }
+        .project img { max-width: 120px; max-height: 120px; display: block; margin-bottom: 8px; }
+    </style>
+    <div class="container">
+        <h1>Project CRUD Interface</h1>
+        <form id="projectForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" required>
+            </div>
+            <div class="form-group">
+                <label for="discPrice">Discounted Price</label>
+                <input type="number" id="discPrice" name="discPrice">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="earbuds">Earbuds</option>
+                    <option value="cases">Cases</option>
+                    <option value="charger">Charger</option>
+                </select>
+                <button type="button" id="addCategoryBtn">Add Category</button>
+            </div>
+            <div class="form-group">
+                <label for="images">Images (select multiple)</label>
+                <input type="file" id="images" name="images" multiple accept="image/*">
+            </div>
+            <button type="submit">Add Project</button>
+        </form>
+
+        <hr>
+        <h2>All Projects</h2>
+        <div id="projects" class="project-list"></div>
+    </div>
+
+    <script>
+    // Helper to fetch and display all projects
+    async function fetchProjects() {
+        const res = await fetch('http://localhost:5000/projects', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const projects = await res.json();
+        const container = document.getElementById('projects');
+        container.innerHTML = '';
+        projects.forEach(project => {
+            const div = document.createElement('div');
+            div.className = 'project';
+            div.innerHTML = `
+                <strong>${project.title}</strong> <br>
+                <em>${project.description}</em><br>
+                Price: ${project.price} | Discount: ${project.discountedPrice || '-'}<br>
+                <img src="${project.image}" alt="Main Image">
+                <div>
+                    <button onclick="editProject(${project.id})">Edit</button>
+                    <button class="delete" onclick="deleteProject(${project.id})">Delete</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Add new project
+    document.getElementById('projectForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('category', document.getElementById('category').value);
+        const res = await fetch('http://localhost:5000/upload', {
+            method: 'POST',
+            body: formData
+        });
+        if (res.ok) {
+            alert('Project added!');
+            form.reset();
+            fetchProjects();
+        } else {
+            alert('Error adding project');
+        }
+    };
+
+    // Add category button logic
+    document.getElementById('addCategoryBtn').onclick = function() {
+        const newCat = prompt('Enter new category name:');
+        if (newCat) {
+            const select = document.getElementById('category');
+            const option = document.createElement('option');
+            option.value = newCat.toLowerCase();
+            option.textContent = newCat;
+            select.appendChild(option);
+            select.value = newCat.toLowerCase();
+        }
+    };
+
+    // Edit project (fetch and fill form)
+    window.editProject = async function(id) {
+        const res = await fetch(`http://localhost:5000/projects/${id}`);
+        if (!res.ok) return alert('Project not found');
+        const project = await res.json();
+        document.getElementById('title').value = project.title;
+        document.getElementById('description').value = project.description;
+        document.getElementById('price').value = project.price;
+        document.getElementById('discPrice').value = project.discountedPrice || '';
+        document.getElementById('category').value = project.category || '';
+        document.getElementById('projectForm').setAttribute('data-edit-id', id);
+        document.getElementById('projectForm').querySelector('button[type="submit"]').textContent = 'Update Project';
+    };
+
+    // Update project
+    document.getElementById('projectForm').addEventListener('submit', async function(e) {
+        const editId = e.target.getAttribute('data-edit-id');
+        if (editId) {
+            e.preventDefault();
+            const body = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('price').value,
+                discountedPrice: document.getElementById('discPrice').value,
+                category: document.getElementById('category').value
+            };
+            const res = await fetch(`http://localhost:5000/projects/${editId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (res.ok) {
+                alert('Project updated!');
+                e.target.reset();
+                e.target.removeAttribute('data-edit-id');
+                e.target.querySelector('button[type="submit"]').textContent = 'Add Project';
+                fetchProjects();
+            } else {
+                alert('Error updating project');
+            }
+        }
+    });
+
+    // Delete project
+    window.deleteProject = async function(id) {
+        if (!confirm('Delete this project?')) return;
+        const res = await fetch(`http://localhost:5000/projects/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            alert('Project deleted!');
+            fetchProjects();
+        } else {
+            alert('Error deleting project');
+        }
+    };
+
+    // Initial load
+    fetchProjects();
+    </script>
