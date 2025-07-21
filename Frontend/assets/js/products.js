@@ -67,14 +67,7 @@ http.onload = function(){
                             ${item.title}
                         </p>
                         <p class="product-price">PKR ${item.discountedPrice} <s>${item.price}</s></p>
-                        <span class="rating">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <span class="review-count">(88)</span>
-                        </span>
+                      
                     </div>
                     </a>
                     `;

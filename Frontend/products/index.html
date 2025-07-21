@@ -258,7 +258,7 @@
     // Fetch categories from JSON and populate select
     async function populateCategories() {
         try {
-            const res = await fetch('http://localhost:5000/projects');
+            const res = await fetch('https://usman-traders-backend.vercel.app/projects');
             const projects = await res.json();
             const categories = Array.from(new Set(projects.map(p => p.category).filter(Boolean)));
             const select = document.getElementById('category-select');
