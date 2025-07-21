@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'http://localhost:5000/projects', true);
+http.open('get', 'https://usman-traders-backend.vercel.app/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
