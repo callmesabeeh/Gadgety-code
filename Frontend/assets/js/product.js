@@ -9,6 +9,8 @@ if(searchParams.has('_id')){
         if(this.readyState == 4 && this.status == 200){
 
             let products = JSON.parse(this.responseText);
+            // Map _id to id for consistency
+            products = products.map(item => ({ ...item, id: item.id || item._id }));
             let result = products.find(item => item.url === url_product_id);
             
             
