@@ -1,6 +1,6 @@
 const searchParams = new URLSearchParams(window.location.search);
 
-if(searchParams.has('id')){
+if(searchParams.has('_id')){
     let url_product_id = searchParams.get('_id');
     let http = new XMLHttpRequest();
     http.open('get', 'https://usman-traders-backend.vercel.app/projects', true);
@@ -42,10 +42,10 @@ if(searchParams.has('id')){
             document.querySelector(".price").innerHTML = `<h5>Price</h5>
             <p>PKR ${result.discountedPrice} <span class="ogPrice">${result.price}</span></p>`
             document.querySelector(".desc").innerHTML = result.description
-            document.querySelector(".addCartBtn").setAttribute("onclick",`add_to_cart('${result.id}', event, 1)`)
-            document.querySelector(".quantityControl").innerHTML = ` <button onclick="decrease_quantity_plain('${result.id}')">-</button>
+            document.querySelector(".addCartBtn").setAttribute("onclick",`add_to_cart('${result._id}', event, 1)`)
+            document.querySelector(".quantityControl").innerHTML = ` <button onclick="decrease_quantity_plain('${result._id}')">-</button>
                             <span class="quantity">1</span>
-                            <button onclick="add_quantity_plain('${result.id}')">+</button>`
+                            <button onclick="add_quantity_plain('${result._id}')">+</button>`
         }
     }
 }
