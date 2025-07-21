@@ -24,7 +24,8 @@ const projectSchema = new mongoose.Schema({
     date: String,
     image: String,
     url: String,
-    additionalImages: [String],
+    category: String, // Added category field
+    additionalImages: [String]
 });
 
 const Project = mongoose.model('Project', projectSchema);
@@ -206,7 +207,7 @@ app.delete('/projects/:id', async (req, res) => {
 
 
 // For Vercel compatibility, export the app instead of listening on a port
-    
+
 
 // For Vercel compatibility, export the app instead of listening on a port
 module.exports = app;
