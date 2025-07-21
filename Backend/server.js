@@ -16,6 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files (index.html, etc.) from project root
 app.use(express.static(__dirname));
 
+// Serve index.html at root
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Path to the projects JSON file
 const projectsFile = 'data/productsData.json';
 
