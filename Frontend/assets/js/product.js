@@ -42,10 +42,10 @@ if(searchParams.has('_id')){
             document.querySelector(".price").innerHTML = `<h5>Price</h5>
             <p>PKR ${result.discountedPrice} <span class="ogPrice">${result.price}</span></p>`
             document.querySelector(".desc").innerHTML = result.description
-            document.querySelector(".addCartBtn").setAttribute("onclick",`add_to_cart('${result._id}', event, 1)`)
-            document.querySelector(".quantityControl").innerHTML = ` <button onclick="decrease_quantity_plain('${result._id}')">-</button>
+            document.querySelector(".addCartBtn").setAttribute("onclick",`add_to_cart('${result.id}', event, 1)`)
+            document.querySelector(".quantityControl").innerHTML = ` <button onclick="decrease_quantity_plain('${result.id}')">-</button>
                             <span class="quantity">1</span>
-                            <button onclick="add_quantity_plain('${result._id}')">+</button>`
+                            <button onclick="add_quantity_plain('${result.id}')">+</button>`
         }
     }
 }
