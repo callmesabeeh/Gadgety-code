@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
 // Path to the projects JSON file
-const projectsFile = 'Data/productsData.json';
+const projectsFile = 'data/productsData.json';
 
 // Utility function to generate URL-friendly slugs
 function generateSlug(title) {
