@@ -10,6 +10,10 @@ http.onload = function(){
         cart.forEach(item => {
             let positionProduct = products.findIndex((value) => value.id == item.product_id);
             let info = products[positionProduct];
+            if (!info) {
+              // Skip rendering this cart item if product not found
+              return;
+            }
             let discount = Math.floor(((info.price - info.discountedPrice) / info.price) * 100);
             cartItem = cartItem + `<div class="cartItem" id="${info.id}">
                         <div class="product-img" style="background-image:url(${info.image});">
