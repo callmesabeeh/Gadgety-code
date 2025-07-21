@@ -63,7 +63,7 @@
     <script>
     // Helper to fetch and display all projects
     async function fetchProjects() {
-        const res = await fetch('http://localhost:5000/projects', {
+        const res = await fetch('https://usman-traders-backend.vercel.app/projects', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -93,7 +93,7 @@
         const form = e.target;
         const formData = new FormData(form);
         formData.append('category', document.getElementById('category').value);
-        const res = await fetch('http://localhost:5000/upload', {
+        const res = await fetch('https://usman-traders-backend.vercel.app/upload', {
             method: 'POST',
             body: formData
         });
@@ -121,7 +121,7 @@
 
     // Edit project (fetch and fill form)
     window.editProject = async function(id) {
-        const res = await fetch(`http://localhost:5000/projects/${id}`);
+        const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${id}`);
         if (!res.ok) return alert('Project not found');
         const project = await res.json();
         document.getElementById('title').value = project.title;
@@ -145,7 +145,7 @@
                 discountedPrice: document.getElementById('discPrice').value,
                 category: document.getElementById('category').value
             };
-            const res = await fetch(`http://localhost:5000/projects/${editId}`, {
+            const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${editId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
@@ -165,7 +165,7 @@
     // Delete project
     window.deleteProject = async function(id) {
         if (!confirm('Delete this project?')) return;
-        const res = await fetch(`http://localhost:5000/projects/${id}`, { method: 'DELETE' });
+        const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${id}`, { method: 'DELETE' });
         if (res.ok) {
             alert('Project deleted!');
             fetchProjects();
@@ -177,3 +177,5 @@
     // Initial load
     fetchProjects();
     </script>
+</body>
+</html>
