@@ -23,7 +23,7 @@ http.onload = function(){
       for(let item of sortedProducts){
          const baseUrl = item.image.substring(0, item.image.lastIndexOf('.'));
          const newUrl = `${baseUrl}_d.webp?maxwidth=750`;
-         output += `<a href="/product/?id=${item.url}">
+         output += `<a href="/product/?_id=${item.url}">
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
                             <span class="discount">${Math.floor(((item.price - item.discountedPrice) / item.price) * 100)}%</span>
@@ -53,7 +53,7 @@ http.onload = function(){
         for(let item of list){
           const baseUrl = item.image.substring(0, item.image.lastIndexOf('.'));
           const newUrl = `${baseUrl}_d.webp?maxwidth=750`;
-          filteredOutput += `<a href="/product/?id=${item.url}">
+          filteredOutput += `<a href="/product/?_id=${item.url}">
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
                             <span class="discount">${Math.floor(((item.price - item.discountedPrice) / item.price) * 100)}%</span>
