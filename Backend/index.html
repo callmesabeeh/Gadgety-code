@@ -87,22 +87,49 @@
         });
     }
 
-    // Add new project
-    document.getElementById('projectForm').onsubmit = async function(e) {
+    // Add new or update project
+    const projectForm = document.getElementById('projectForm');
+    projectForm.onsubmit = async function(e) {
         e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        formData.append('category', document.getElementById('category').value);
-        const res = await fetch('https://usman-traders-backend.vercel.app/upload', {
-            method: 'POST',
-            body: formData
-        });
-        if (res.ok) {
-            alert('Project added!');
-            form.reset();
-            fetchProjects();
+        const editId = projectForm.getAttribute('data-edit-id');
+        if (editId) {
+            // Update project
+            const body = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('price').value,
+                discountedPrice: document.getElementById('discPrice').value,
+                category: document.getElementById('category').value
+            };
+            const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${editId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (res.ok) {
+                alert('Project updated!');
+                projectForm.reset();
+                projectForm.removeAttribute('data-edit-id');
+                projectForm.querySelector('button[type="submit"]').textContent = 'Add Project';
+                fetchProjects();
+            } else {
+                alert('Error updating project');
+            }
         } else {
-            alert('Error adding project');
+            // Add new project
+            const formData = new FormData(projectForm);
+            formData.append('category', document.getElementById('category').value);
+            const res = await fetch('https://usman-traders-backend.vercel.app/upload', {
+                method: 'POST',
+                body: formData
+            });
+            if (res.ok) {
+                alert('Project added!');
+                projectForm.reset();
+                fetchProjects();
+            } else {
+                alert('Error adding project');
+            }
         }
     };
 
@@ -132,35 +159,6 @@
         document.getElementById('projectForm').setAttribute('data-edit-id', id);
         document.getElementById('projectForm').querySelector('button[type="submit"]').textContent = 'Update Project';
     };
-
-    // Update project
-    document.getElementById('projectForm').addEventListener('submit', async function(e) {
-        const editId = e.target.getAttribute('data-edit-id');
-        if (editId) {
-            e.preventDefault();
-            const body = {
-                title: document.getElementById('title').value,
-                description: document.getElementById('description').value,
-                price: document.getElementById('price').value,
-                discountedPrice: document.getElementById('discPrice').value,
-                category: document.getElementById('category').value
-            };
-            const res = await fetch(`https://usman-traders-backend.vercel.app/projects/${editId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            if (res.ok) {
-                alert('Project updated!');
-                e.target.reset();
-                e.target.removeAttribute('data-edit-id');
-                e.target.querySelector('button[type="submit"]').textContent = 'Add Project';
-                fetchProjects();
-            } else {
-                alert('Error updating project');
-            }
-        }
-    });
 
     // Delete project
     window.deleteProject = async function(id) {
