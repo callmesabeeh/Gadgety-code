@@ -37,6 +37,7 @@ const add_to_cart = (product_id , e, productQty) => {
     }
     cartQty = cartQty + productQty
     updateCartQty()
+    calculateTotal();
     console.log(product_id)
     e.stopPropagation(); 
     e.preventDefault(); 
@@ -62,6 +63,8 @@ const add_to_cart = (product_id , e, productQty) => {
     localStorage.setItem('cart', JSON.stringify(cart));
     
     localStorage.setItem('cartQty', cartQty);
+    updateCartQty();
+    calculateTotal();
     console.log(cart)
 }
 
@@ -133,7 +136,7 @@ function decrease_quantity(product_id) {
 
 function calculateTotal() {
     let total = 0;
-    if (typeof window.products !== 'undefined') {
+    if (typeof window.products !== 'undefined' && window.products.length) {
         cart.forEach(item => {
             let product = window.products.find(p => p.id == item.product_id);
             if (product) {
