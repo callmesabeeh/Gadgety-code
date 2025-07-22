@@ -254,28 +254,6 @@
           </footer>
     </div>
 
-    <script>
-    // Fetch categories from JSON and populate select
-    async function populateCategories() {
-        try {
-            const res = await fetch('https://usman-traders-backend.vercel.app/projects');
-            const projects = await res.json();
-            const categories = Array.from(new Set(projects.map(p => p.category).filter(Boolean)));
-            const select = document.getElementById('category-select');
-            // Remove old options except 'all'
-            select.innerHTML = '<option value="all">All Categories</option>';
-            categories.forEach(cat => {
-                const option = document.createElement('option');
-                option.value = cat;
-                option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-                select.appendChild(option);
-            });
-        } catch (err) {
-            console.error('Failed to load categories:', err);
-        }
-    }
-    populateCategories();
-    </script>
     
     <script src="/script.js"></script>
     <script src="/assets/js/products.js"></script>

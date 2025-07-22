@@ -44,12 +44,22 @@ http.onload = function(){
       document.querySelector(".slider-products").innerHTML = output;
       document.querySelector(".all-products").innerHTML = output;
 
+      // Populate categories in the select
+      const categorySelect = document.getElementById('category-select');
+      const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
+      categorySelect.innerHTML = '<option value="all">All Categories</option>';
+      categories.forEach(cat => {
+          const option = document.createElement('option');
+          option.value = cat.toLowerCase();
+          option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+          categorySelect.appendChild(option);
+      });
+
       // SEARCH + SORT FUNCTIONALITY
       let currentSortAsc = true;
       const searchInput = document.getElementById('product-search');
       const sortBtn = document.querySelector('.sort');
       const sortIcon = sortBtn ? sortBtn.querySelector('i') : null;
-      const categorySelect = document.getElementById('category-select');
       function renderProducts(list) {
         let filteredOutput = "";
         for(let item of list){
