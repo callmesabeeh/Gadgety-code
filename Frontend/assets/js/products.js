@@ -69,10 +69,7 @@ http.onload = function(){
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
                             <span class="discount">${Math.floor(((item.price - item.discountedPrice) / item.price) * 100)}%</span>
-                            <div class="icons">
-                                <i class="fa fa-heart"></i>
-                                <i class="fa fa-eye"></i>
-                            </div>
+                           
                             <button onclick="add_to_cart('${item.id}', event , 1)" class="add-to-cart">Add To Cart</button>
                         </div>
                         <p class="product-name">
