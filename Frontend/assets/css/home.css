@@ -127,11 +127,16 @@ footer {
         top: -14vh;
     }
   }
-  
+@media screen and (max-width: 1026px) {
+    .content h2{
+      right: 23vw;
+    }
+  }
+
 @media screen and (max-width: 768px) {
     img{
         position: absolute;
-        left: 0;
+   
         bottom: 0;
     }
 .content{
@@ -148,6 +153,7 @@ line-height: 4.1rem;
 font-weight:500;
 
 }
+
 .content h2 span{
     font-size: 3.4rem;
 }

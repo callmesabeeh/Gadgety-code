@@ -174,7 +174,7 @@ i.fa-bars{
   top: 5px;
   /* box-shadow: -4px 1px 4px rgba(0, 0, 0, 0.178); */
   transition: all 0.2s;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
 }
 .navContainer li.active::after{
   width: 70%;
@@ -211,7 +211,7 @@ i.fa-bars{
   border-radius: 2rem 0 0 2rem;
   width: 70vw;
   height: 100vh;
-  background: rgb(224, 224, 224);
+  background: #749BC2;
   z-index: 999;
   transition: 0.4s all ease;
 }
@@ -258,7 +258,7 @@ text-align: center;
   top: -5px;
   /* box-shadow: -4px 1px 4px rgba(0, 0, 0, 0.178); */
   transition: all 0.2s;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
 }
 .mob-menu li.active::after{
   width: 50%;
@@ -372,6 +372,7 @@ footer{
 
 
 
+
 @media screen and (max-width: 1050px) {
   .footer-content{
       gap: 5vw;
@@ -390,6 +391,7 @@ footer{
   padding: 0 3rem;
 }
 i.fa-bars{
+  color: white;
   display: inline-block;
   
 }
