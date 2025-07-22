@@ -146,7 +146,7 @@ function calculateTotal() {
     }
     let totalElem = document.querySelector('.cartTotal');
     console.log('Updating cartTotal:', total, totalElem);
-    if (totalElem) totalElem.innerText = 'Total: PKR ' + total;
+    if (totalElem) totalElem.innerText = 'PKR ' + total;
 }
 
 function updateCartQty() {
