@@ -1,44 +1,3 @@
-body {
-    font-family: 'Poppins', sans-serif;
-}
-.content {
-  position: relative;
-}
-.home-hero-img {
-  position: relative;
-  z-index: 2;
-}
-.content h2 {
-  
-  
-  z-index: 1;
-  width: 100%;
-  text-align: center;
-  color: white; /* faded effect for behind image */
-  pointer-events: none;
-}
-/* Responsive home hero image */
-.home-hero-img {
-  width: 100%;
-  max-width: 50rem;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media screen and (max-width: 768px) {
-  .home-hero-img {
-    max-width: 90vw;
-    margin-top: 1.5rem;
-  }
-}
-@media screen and (max-width: 480px) {
-  .home-hero-img {
-    max-width: 98vw;
-    margin-top: 1rem;
-  }
-}
 /* <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"> */
@@ -64,7 +23,18 @@ body {
   }
    */
 
-  
+   @font-face {
+    font-family: 'futurabk';
+    src: url('./assets/fonts/futurabkbtrusbyme_book.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'futurabkbold';
+  src: url('./assets/fonts/Futura\ Heavy\ font.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 *{
@@ -148,7 +118,7 @@ header .icons i:hover{
   text-decoration: none;
 }
 .logo h1{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'futurabk';
   font-weight: bold;
   text-transform: uppercase;
   font-size: 1.2rem;
@@ -156,7 +126,7 @@ header .icons i:hover{
 }
 .logo p{
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'futurabk';
   text-transform: uppercase;
   font-size: 0.5rem;
 }
@@ -190,7 +160,7 @@ i.fa-bars{
 .navContainer li{
   float: left;
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: futurabk;
   margin: 0 1.3rem;
 }
 .navContainer li::after{
@@ -204,7 +174,7 @@ i.fa-bars{
   top: 5px;
   /* box-shadow: -4px 1px 4px rgba(0, 0, 0, 0.178); */
   transition: all 0.2s;
-  background-color: rgb(255, 255, 255);
+  background-color: black;
 }
 .navContainer li.active::after{
   width: 70%;
@@ -241,7 +211,7 @@ i.fa-bars{
   border-radius: 2rem 0 0 2rem;
   width: 70vw;
   height: 100vh;
-  background: #749BC2;
+  background: rgb(224, 224, 224);
   z-index: 999;
   transition: 0.4s all ease;
 }
@@ -269,7 +239,7 @@ i.fa-bars{
 }
 .mob-menu ul a{
   line-height: 3rem;
-font-family: 'Poppins', sans-serif;
+font-family: futurabk;
 text-decoration: none;
 list-style-type: none;
 color: black;
@@ -312,7 +282,7 @@ footer{
 }
 
 .footer p{
-  font-family: 'Poppins', sans-serif;
+  font-family: poppins;
   font-weight: 400;
   font-size: 0.65rem;
   
@@ -327,7 +297,7 @@ footer{
   text-decoration: underline;
 }
 .footer h5{
-  font-family: 'Poppins', sans-serif;
+  font-family: poppins;
   font-weight: 500;
   font-size: 0.8rem;
   margin-bottom: 0.3rem;
@@ -387,7 +357,7 @@ footer{
 .copyright{
   text-align: center;
   font-size: 0.7rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: poppins;
   font-weight: 400;
   padding-bottom: 1.5rem;
   display: flex;
