@@ -97,13 +97,13 @@ function renderCart(products) {
                             <span class="discount">-${discount}%</span>
                         </div>
                         <div class="quantityControl">
-                            <button class="decrease"  onclick="decrease_quantity(${info.id})">-</button>
+                            <button class="decrease"  onclick="decrease_quantity('${info.id}')">-</button>
                             <span class="quantity">${item.quantity}</span>
-                            <button class="increase" onclick="add_quantity(${info.id})">+</button>
+                            <button class="increase" onclick="add_quantity('${info.id}')">+</button>
                         </div>
                         <p class="price">PKR ${info.discountedPrice}</p>
                         <p class="totalPrice">PKR ${info.discountedPrice * item.quantity}</p>
-                        <button onclick="remove_cart(${info.id}, ${item.quantity})" class="removeItem"><span></span></button>
+                        <button onclick="remove_cart('${info.id}', ${item.quantity})" class="removeItem"><span></span></button>
                      </div>`
         })
         cartList.innerHTML = cartItem + "<h3>Empty Cart</h3>"
