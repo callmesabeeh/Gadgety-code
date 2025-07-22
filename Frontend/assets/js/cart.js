@@ -66,6 +66,7 @@ const add_to_cart = (product_id , e, productQty) => {
 }
 
 function add_quantity(product_id) {
+    if (!product_id || product_id === 'undefined') return;
     let item = cart.find(item => item.product_id == product_id);
     if (item) {
         item.quantity += 1;
@@ -74,11 +75,26 @@ function add_quantity(product_id) {
         localStorage.setItem('cartQty', cartQty);
         updateCartQty();
         calculateTotal();
-        updateCartDisplay(); // Update cart UI without reload
+        // Update DOM for this cart item if present
+        let qty = document.querySelector(`[id='${product_id}'] .quantityControl span`);
+        if (qty) {
+            let newQty = Number(qty.innerText) + 1;
+            qty.innerHTML = newQty;
+            let removeBtn = document.querySelector(`[id='${product_id}'] .removeItem`);
+            if (removeBtn) removeBtn.setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`);
+            let price = document.querySelector(`[id='${product_id}'] .price`);
+            let totalPrice = document.querySelector(`[id='${product_id}'] .totalPrice`);
+            if (price && totalPrice) {
+                let convertedPrice = price.innerText.replace("PKR ", "");
+                totalPrice.innerHTML = "PKR " + (Number(convertedPrice) * Number(newQty));
+            }
+        }
+        updateCartDisplay();
     }
 }
 
 function decrease_quantity(product_id) {
+    if (!product_id || product_id === 'undefined') return;
     let itemIndex = cart.findIndex(item => item.product_id == product_id);
     if (itemIndex > -1) {
         let item = cart[itemIndex];
@@ -88,12 +104,30 @@ function decrease_quantity(product_id) {
         } else {
             cartQty -= 1;
             cart.splice(itemIndex, 1); // Remove item if quantity is 1
+            setTimeout(() => {
+                let cartItemDiv = document.querySelector(`[id='${product_id}']`);
+                if (cartItemDiv) cartItemDiv.remove();
+            }, 100);
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         localStorage.setItem('cartQty', cartQty);
         updateCartQty();
         calculateTotal();
-        updateCartDisplay(); // Update cart UI without reload
+        // Update DOM for this cart item if present
+        let qty = document.querySelector(`[id='${product_id}'] .quantityControl span`);
+        if (qty) {
+            let newQty = Number(qty.innerText) - 1;
+            qty.innerHTML = newQty;
+            let removeBtn = document.querySelector(`[id='${product_id}'] .removeItem`);
+            if (removeBtn) removeBtn.setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`);
+            let price = document.querySelector(`[id='${product_id}'] .price`);
+            let totalPrice = document.querySelector(`[id='${product_id}'] .totalPrice`);
+            if (price && totalPrice) {
+                let convertedPrice = price.innerText.replace("PKR ", "");
+                totalPrice.innerHTML = "PKR " + (Number(convertedPrice) * Number(newQty));
+            }
+        }
+        updateCartDisplay();
     }
 }
 
