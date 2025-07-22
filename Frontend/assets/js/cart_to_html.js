@@ -118,4 +118,5 @@ function renderCart(products) {
             emptyCart.style.display = "none"
         }
     }
+    calculateTotal();
 }
