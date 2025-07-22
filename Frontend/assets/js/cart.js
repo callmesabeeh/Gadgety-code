@@ -120,12 +120,16 @@ function updateCartQty() {
 
 // New: Update cart display after quantity changes
 function updateCartDisplay() {
-    // This function should re-render the cart items in the DOM.
-    // If you use cart_to_html.js for rendering, you can reload the cart page or call its logic here.
-    // For now, we'll reload the cart page if on cart page, otherwise do nothing.
-    if (window.location.href.indexOf("cart") > -1) {
-        // If you have a function to render cart, call it here instead of reload
-        window.location.reload();
+    // If products are loaded, re-render cart instantly
+    if (typeof window.products !== 'undefined' && window.products.length) {
+        if (typeof renderCart === 'function') {
+            renderCart(window.products);
+        }
+    } else {
+        // Fallback: reload the page to fetch products and render
+        if (window.location.href.indexOf("cart") > -1) {
+            window.location.reload();
+        }
     }
 }
 
