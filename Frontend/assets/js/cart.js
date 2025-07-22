@@ -1,5 +1,5 @@
-var cart = []
-var cartQty = 0
+var cart = [];
+var cartQty = 0;
 if(localStorage.getItem('cart')){
     cart = JSON.parse(localStorage.getItem('cart'));
   
