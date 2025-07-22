@@ -166,7 +166,15 @@ app.post('/upload', upload.array('images'), async (req, res) => {
 app.get('/projects', async (req, res) => {
     try {
         const projects = await Project.find();
-        res.json(projects);
+        // Map _id to id for frontend compatibility
+        const mappedProjects = projects.map(project => {
+            const obj = project.toObject();
+            obj.id = obj._id.toString();
+            delete obj._id;
+            delete obj.__v;
+            return obj;
+        });
+        res.json(mappedProjects);
     } catch (error) {
         res.status(500).send('Error reading projects data');
     }

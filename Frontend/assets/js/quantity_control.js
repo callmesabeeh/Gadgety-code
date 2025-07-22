@@ -1,5 +1,6 @@
 
 const add_quantity = (product_id) =>{
+    if (!product_id || product_id === 'undefined') return;
     let positionItemInCart = cart.findIndex((value) => value.product_id == product_id);
     if(positionItemInCart >= 0){
         cartQty +=1
@@ -8,21 +9,17 @@ const add_quantity = (product_id) =>{
         let info = cart[positionItemInCart];
         cart[positionItemInCart].quantity = cart[positionItemInCart].quantity + 1;
         let qty = document.querySelector(`[id='${product_id}'] .quantityControl span`)
-        
-        
+        if (!qty) return;
         let newQty;
         newQty = Number(qty.innerText) + 1
-        document.querySelector(`[id='${product_id}'] .removeItem`).setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`)
+        let removeBtn = document.querySelector(`[id='${product_id}'] .removeItem`);
+        if (removeBtn) removeBtn.setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`)
         qty.innerHTML = newQty
         let price = document.querySelector(`[id='${product_id}'] .price`)
         let totalPrice = document.querySelector(`[id='${product_id}'] .totalPrice`)
+        if (!price || !totalPrice) return;
         let convertedPrice = price.innerText.replace("PKR ", "")
-        console.log(newQty)
         totalPrice.innerHTML = "PKR " + (Number(convertedPrice) * Number(newQty))
-
-
-
-
         localStorage.setItem("cart", JSON.stringify(cart))
         calculateTotal()
     }
@@ -30,6 +27,7 @@ const add_quantity = (product_id) =>{
 }
 
 const decrease_quantity = (product_id) =>{
+    if (!product_id || product_id === 'undefined') return;
     cartQty -=1
         localStorage.setItem('cartQty', cartQty);
         updateCartQty()
@@ -42,19 +40,21 @@ const decrease_quantity = (product_id) =>{
         }else{
             cart.splice(positionItemInCart, 1);
             setTimeout(() => {
-                document.querySelector(`[id='${product_id}']`).remove()
+                let cartItemDiv = document.querySelector(`[id='${product_id}']`);
+                if (cartItemDiv) cartItemDiv.remove()
             }, 100);
             
         }
         let qty = document.querySelector(`[id='${product_id}'] .quantityControl span`)
+        if (!qty) return;
         let newQty;
         newQty = Number(qty.innerText) - 1
-        qty.innerHTML = newQty
-        document.querySelector(`[id='${product_id}'] .removeItem`).setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`)
+        let removeBtn = document.querySelector(`[id='${product_id}'] .removeItem`);
+        if (removeBtn) removeBtn.setAttribute("onclick", `remove_cart(${product_id}, ${newQty})`)
         let price = document.querySelector(`[id='${product_id}'] .price`)
         let totalPrice = document.querySelector(`[id='${product_id}'] .totalPrice`)
+        if (!price || !totalPrice) return;
         let convertedPrice = price.innerText.replace("PKR ", "")
-        console.log(newQty)
         totalPrice.innerHTML = "PKR " +  Number(convertedPrice) * Number(newQty)
         localStorage.setItem("cart", JSON.stringify(cart))
         calculateTotal()

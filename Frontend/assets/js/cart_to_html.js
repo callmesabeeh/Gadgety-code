@@ -6,12 +6,16 @@ http.onload = function(){
     let cartList = document.querySelector(".cartList")
     let cartItem = "" 
       let products = JSON.parse(this.responseText);
+      // Map _id to id for consistency
+      products = products.map(item => ({ ...item, id: item.id || item._id }));
       if(cart.length > 0){
+        // Remove cart items with undefined product_id
+        cart = cart.filter(item => item.product_id && item.product_id !== 'undefined');
         cart.forEach(item => {
             let positionProduct = products.findIndex((value) => value.id == item.product_id);
             let info = products[positionProduct];
             if (!info) {
-              // Skip rendering this cart item if product not found
+              // Remove this cart item if product not found
               return;
             }
             let discount = Math.floor(((info.price - info.discountedPrice) / info.price) * 100);
@@ -20,13 +24,13 @@ http.onload = function(){
                             <span class="discount">-${discount}%</span>
                         </div>
                         <div class="quantityControl">
-                            <button class="decrease"  onclick="decrease_quantity(${info._id})">-</button>
+                            <button class="decrease"  onclick="decrease_quantity(${info.id})">-</button>
                             <span class="quantity">${item.quantity}</span>
-                            <button class="increase" onclick="add_quantity(${info._id})">+</button>
+                            <button class="increase" onclick="add_quantity(${info.id})">+</button>
                         </div>
                         <p class="price">PKR ${info.discountedPrice}</p>
                         <p class="totalPrice">PKR ${info.discountedPrice * item.quantity}</p>
-                        <button onclick="remove_cart(${info._id}, ${item.quantity})" class="removeItem"><span></span></button>
+                        <button onclick="remove_cart(${info.id}, ${item.quantity})" class="removeItem"><span></span></button>
                      </div>`
         })
         cartList.innerHTML = cartItem + "<h3>Empty Cart</h3>"
@@ -71,7 +75,7 @@ function sendCartToWhatsApp(productsArg) {
         let message = `🛒 *Cart Details*:\n*Name:* ${name}\n*Email:* ${email}\n*Address:* ${address}\n\n`;
         let total = 0;
         cart.forEach((item, idx) => {
-            let info = productsList.find(p => p._id == item.product_id);
+            let info = productsList.find(p => p.id == item.product_id);
             if (info) {
                 let line = `${idx + 1}. ${info.title} x${item.quantity} - PKR ${info.discountedPrice * item.quantity}\n`;
                 message += line;

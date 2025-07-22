@@ -4,6 +4,8 @@ http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
       let products = JSON.parse(this.responseText);
+      // Map _id to id for consistency
+      products = products.map(item => ({ ...item, id: item.id || item._id }));
       // Convert price fields to numbers for all products
       products = products.map(item => ({
         ...item,

@@ -33,6 +33,10 @@ setTimeout(() => {
 }, 100);
 
 const add_to_cart = (product_id , e, productQty) => {
+    if (!product_id || product_id === 'undefined') {
+        alert('Invalid product. Please refresh the page.');
+        return;
+    }
     cartQty = cartQty + productQty
     updateCartQty()
     console.log(product_id)

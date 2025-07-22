@@ -12,6 +12,10 @@ if(searchParams.has('_id')){
             // Map _id to id for consistency
             products = products.map(item => ({ ...item, id: item.id || item._id }));
             let result = products.find(item => item.url === url_product_id);
+            if (!result) {
+                alert('Product not found!');
+                return;
+            }
             
             
             const mainImgUrl = result.image.substring(0, result.image.lastIndexOf('.'));
