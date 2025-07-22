@@ -8,6 +8,7 @@ http.onload = function(){
       let products = JSON.parse(this.responseText);
       // Map _id to id for consistency
       products = products.map(item => ({ ...item, id: item.id || item._id }));
+      window.products = products;
       if(cart.length > 0){
         // Remove cart items with undefined product_id
         cart = cart.filter(item => item.product_id && item.product_id !== 'undefined');
@@ -90,7 +91,7 @@ function sendCartToWhatsApp(productsArg) {
         doSend(products);
     } else {
         // Fallback: fetch products data
-        fetch('/assets/productsData/productsData.json')
+        fetch('https://usman-traders-backend.vercel.app/projects')
             .then(res => res.json())
             .then(data => doSend(data))
             .catch(() => alert('Could not load product data.'));
