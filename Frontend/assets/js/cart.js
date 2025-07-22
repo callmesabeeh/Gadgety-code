@@ -145,11 +145,13 @@ function calculateTotal() {
         });
     }
     let totalElem = document.querySelector('.cartTotal');
+    console.log('Updating cartTotal:', total, totalElem);
     if (totalElem) totalElem.innerText = 'Total: PKR ' + total;
 }
 
 function updateCartQty() {
     let cartQtyElem = document.querySelector('.cartQty');
+    console.log('Updating cartQty:', cartQty, cartQtyElem);
     if (cartQtyElem) {
         cartQtyElem.innerText = cartQty;
     }
