@@ -44,7 +44,7 @@ function sendCartToWhatsApp(productsArg) {
         });
         message += `\nTotal: PKR ${total}`;
         const encoded = encodeURIComponent(message);
-        window.open(`https://wa.me/+923228435204?text=${encoded}`, "_blank");
+        window.open(`https://wa.me/+923345277759?text=${encoded}`, "_blank");
     }
     if (products && products.length) {
         doSend(products);
