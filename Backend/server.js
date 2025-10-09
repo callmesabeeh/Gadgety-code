@@ -10,10 +10,18 @@ const FileType = require('file-type'); // Install this: npm install file-type
 const sharp = require('sharp'); // Install this: npm install sharp
 const mongoose = require('mongoose');
 require('dotenv').config();
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB successfully'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// Connect to MongoDB with more options
+mongoose.connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+    dbName: 'Gadgety'
+})
+.then(() => console.log('Connected to MongoDB successfully'))
+.catch(err => {
+    console.error('MongoDB connection error:', err);
+    // Don't crash the server on connection error
+    // Instead, requests will fail gracefully if DB is not available
+});
 
 const projectSchema = new mongoose.Schema({
     title: String,
@@ -33,6 +41,23 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Add request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({ 
+        error: 'Internal Server Error',
+        message: err.message,
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
+});
+
 // Serve static files (index.html, etc.) from project root
 app.use(express.static(__dirname));
 
