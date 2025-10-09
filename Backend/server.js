@@ -6,21 +6,34 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 const FormData = require('form-data');
-const FileType = require('file-type'); // Install this: npm install file-type
-const sharp = require('sharp'); // Install this: npm install sharp
+const FileType = require('file-type');
+const sharp = require('sharp');
 const mongoose = require('mongoose');
 require('dotenv').config();
-// Connect to MongoDB with more options
-mongoose.connect(process.env.MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 45000,
-    dbName: 'Gadgety'
-})
-.then(() => console.log('Connected to MongoDB successfully'))
-.catch(err => {
+
+// MongoDB connection with retry logic
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+            dbName: 'Gadgety'
+        });
+        console.log('Connected to MongoDB successfully');
+    } catch (err) {
+        console.error('MongoDB connection error:', err);
+        // Wait 5 seconds before retrying
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        return connectDB();
+    }
+};
+
+// Connect to MongoDB
+connectDB();
+
+// MongoDB connection error handler
+mongoose.connection.on('error', err => {
     console.error('MongoDB connection error:', err);
-    // Don't crash the server on connection error
-    // Instead, requests will fail gracefully if DB is not available
 });
 
 const projectSchema = new mongoose.Schema({
@@ -38,7 +51,10 @@ const projectSchema = new mongoose.Schema({
 const Project = mongoose.model('Project', projectSchema);
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5501', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -46,16 +62,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     next();
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(500).json({ 
-        error: 'Internal Server Error',
-        message: err.message,
-        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
-    });
 });
 
 // Serve static files (index.html, etc.) from project root
@@ -193,18 +199,20 @@ app.post('/upload', upload.array('images'), async (req, res) => {
 // Get all projects
 app.get('/projects', async (req, res) => {
     try {
-        const projects = await Project.find();
-        // Map _id to id for frontend compatibility
-        const mappedProjects = projects.map(project => {
-            const obj = project.toObject();
-            obj.id = obj._id.toString();
-            delete obj._id;
-            delete obj.__v;
-            return obj;
-        });
+        const projects = await Project.find().lean();
+        const mappedProjects = projects.map(project => ({
+            ...project,
+            id: project._id.toString(),
+            _id: undefined,
+            __v: undefined
+        }));
         res.json(mappedProjects);
     } catch (error) {
-        res.status(500).send('Error reading projects data');
+        console.error('Error fetching projects:', error);
+        res.status(500).json({ 
+            error: 'Error reading projects data',
+            message: error.message
+        });
     }
 });
 
@@ -234,15 +242,28 @@ app.put('/projects/:id', async (req, res) => {
 app.delete('/projects/:id', async (req, res) => {
     try {
         const deletedProject = await Project.findByIdAndDelete(req.params.id);
-        if (!deletedProject) return res.status(404).send('Not found');
+        if (!deletedProject) return res.status(404).json({ error: 'Project not found' });
         res.json(deletedProject);
     } catch (error) {
-        res.status(500).send('Error deleting project');
+        console.error('Error deleting project:', error);
+        res.status(500).json({ 
+            error: 'Error deleting project',
+            message: error.message
+        });
     }
 });
 
+// Error handling middleware - must be last
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({ 
+        error: 'Internal Server Error',
+        message: err.message,
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
+});
 
-// For Vercel compatibility, export the app instead of listening on a port
+// For Vercel compatibility
 module.exports = app;
 
 if (require.main === module) {
