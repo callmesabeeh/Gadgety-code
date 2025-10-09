@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'http://localhost:5000/projects', true);
+http.open('get', 'https://gadgety-code.vercel.app/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
@@ -50,7 +50,7 @@ function sendCartToWhatsApp(productsArg) {
         doSend(products);
     } else {
         // Fallback: fetch products data
-        fetch('http://localhost:5000/projects')
+        fetch('https://gadgety-code.vercel.app/projects')
             .then(res => res.json())
             .then(data => doSend(data))
             .catch(() => alert('Could not load product data.'));
