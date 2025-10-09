@@ -9,12 +9,11 @@ const FormData = require('form-data');
 const FileType = require('file-type'); // Install this: npm install file-type
 const sharp = require('sharp'); // Install this: npm install sharp
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB successfully'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const projectSchema = new mongoose.Schema({
     title: String,
@@ -119,6 +118,10 @@ function delay(ms) {
 // Handle project uploads
 app.post('/upload', upload.array('images'), async (req, res) => {
     try {
+        console.log('Received upload request:', {
+            body: req.body,
+            files: req.files ? req.files.length : 0
+        });
         const projectTitle = req.body.title.replace(/\s+/g, '_').toLowerCase();
         const slug = generateSlug(projectTitle);
         const today = new Date().toISOString().slice(0, 10);
@@ -215,7 +218,18 @@ app.delete('/projects/:id', async (req, res) => {
 
 
 // For Vercel compatibility, export the app instead of listening on a port
-
-
-// For Vercel compatibility, export the app instead of listening on a port
 module.exports = app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log('Waiting for requests...');
+    
+    // Add middleware to log all requests
+    app.use((req, res, next) => {
+      console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+      next();
+    });
+  });
+}

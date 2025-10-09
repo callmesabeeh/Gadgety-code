@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'https://usman-traders-backend.vercel.app/projects', true);
+http.open('get', 'http://localhost:5000/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
@@ -44,13 +44,13 @@ function sendCartToWhatsApp(productsArg) {
         });
         message += `\nTotal: PKR ${total}`;
         const encoded = encodeURIComponent(message);
-        window.open(`https://wa.me/+923345277759?text=${encoded}`, "_blank");
+        window.open(`https://wa.me/+923225541094?text=${encoded}`, "_blank");
     }
     if (products && products.length) {
         doSend(products);
     } else {
         // Fallback: fetch products data
-        fetch('https://usman-traders-backend.vercel.app/projects')
+        fetch('http://localhost:5000/projects')
             .then(res => res.json())
             .then(data => doSend(data))
             .catch(() => alert('Could not load product data.'));

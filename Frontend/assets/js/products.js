@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'https://usman-traders-backend.vercel.app/projects', true);
+http.open('get', 'http://localhost:5000/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
@@ -48,11 +48,13 @@ http.onload = function(){
       const categorySelect = document.getElementById('category-select');
       const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
       categorySelect.innerHTML = '<option value="all">All Categories</option>';
-      categories.forEach(cat => {
-          const option = document.createElement('option');
-          option.value = cat.toLowerCase();
-          option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-          categorySelect.appendChild(option);
+      categories.sort().forEach(cat => {
+          if (cat) {  // Only add if category exists
+              const option = document.createElement('option');
+              option.value = cat.toLowerCase();
+              option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+              categorySelect.appendChild(option);
+          }
       });
 
       // SEARCH + SORT FUNCTIONALITY
@@ -88,7 +90,8 @@ http.onload = function(){
         let selectedCategory = categorySelect ? categorySelect.value : "all";
         let filtered = products.filter(item => {
           let matchesSearch = item.title.toLowerCase().includes(query);
-          let matchesCategory = selectedCategory === "all" || (item.category && item.category.toLowerCase() === selectedCategory);
+          let matchesCategory = selectedCategory === "all" || 
+                              (item.category && item.category.toLowerCase() === selectedCategory.toLowerCase());
           return matchesSearch && matchesCategory;
         });
         // Robust sorting by discountedPrice, handling missing or invalid values
