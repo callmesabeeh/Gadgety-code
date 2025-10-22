@@ -52,7 +52,7 @@ const Project = mongoose.model('Project', projectSchema);
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5501', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
+    origin: ['http://localhost:5501 ', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
     credentials: true
 }));
 app.use(bodyParser.json());
@@ -70,6 +70,11 @@ app.use(express.static(__dirname));
 // Serve index.html at root
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Handle favicon.ico requests
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end(); // No content response
 });
 
 
