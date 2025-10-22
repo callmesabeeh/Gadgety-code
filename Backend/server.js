@@ -11,20 +11,32 @@ const sharp = require('sharp');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// MongoDB connection with retry logic
+// MongoDB connection with retry logic and proper error handling
 const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            serverSelectionTimeoutMS: 5000,
-            socketTimeoutMS: 45000,
-            dbName: 'Gadgety'
-        });
-        console.log('Connected to MongoDB successfully');
-    } catch (err) {
-        console.error('MongoDB connection error:', err);
-        // Wait 5 seconds before retrying
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        return connectDB();
+    const maxRetries = 3;
+    let retries = 0;
+
+    while (retries < maxRetries) {
+        try {
+            await mongoose.connect(process.env.MONGODB_URI, {
+                serverSelectionTimeoutMS: 5000,
+                socketTimeoutMS: 45000,
+                dbName: 'Gadgety',
+                retryWrites: true,
+                w: 'majority',
+                maxPoolSize: 10
+            });
+            console.log('Connected to MongoDB successfully');
+            return;
+        } catch (err) {
+            retries++;
+            console.error(`MongoDB connection error (attempt ${retries}/${maxRetries}):`, err);
+            if (retries === maxRetries) {
+                throw new Error('Failed to connect to MongoDB after multiple attempts');
+            }
+            // Wait 5 seconds before retrying
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
     }
 };
 
@@ -52,15 +64,32 @@ const Project = mongoose.model('Project', projectSchema);
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5501 ', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
+    origin: ['http://localhost:5501', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
     credentials: true
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Add request logging middleware
+// Request logging middleware with detailed information
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    const start = Date.now();
+    const requestId = Math.random().toString(36).substring(7);
+    
+    console.log(`[${requestId}] ${new Date().toISOString()} - Started ${req.method} ${req.url}`);
+    console.log(`[${requestId}] Headers:`, req.headers);
+    
+    // Log request body if present and not a file upload
+    if (req.body && !req.is('multipart/form-data')) {
+        console.log(`[${requestId}] Body:`, req.body);
+    }
+
+    // Add response logging
+    const oldSend = res.send;
+    res.send = function(data) {
+        console.log(`[${requestId}] Response time: ${Date.now() - start}ms`);
+        return oldSend.apply(res, arguments);
+    };
+
     next();
 });
 
@@ -258,13 +287,30 @@ app.delete('/projects/:id', async (req, res) => {
     }
 });
 
-// Error handling middleware - must be last
+// Global error handling middleware - must be last
 app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(500).json({ 
-        error: 'Internal Server Error',
-        message: err.message,
-        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    const errorId = Math.random().toString(36).substring(7);
+    
+    // Log detailed error information
+    console.error(`[Error ${errorId}] ${new Date().toISOString()}`);
+    console.error(`[Error ${errorId}] URL: ${req.method} ${req.url}`);
+    console.error(`[Error ${errorId}] Error:`, err);
+    console.error(`[Error ${errorId}] Stack:`, err.stack);
+    
+    // Send appropriate error response
+    const statusCode = err.status || 500;
+    res.status(statusCode).json({ 
+        error: {
+            id: errorId,
+            message: process.env.NODE_ENV === 'production' 
+                ? 'An unexpected error occurred' 
+                : err.message,
+            type: err.name || 'InternalServerError',
+            status: statusCode,
+            path: req.url,
+            timestamp: new Date().toISOString(),
+            ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+        }
     });
 });
 
