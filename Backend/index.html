@@ -63,7 +63,7 @@
     <script>
     // Helper to fetch and display all projects
     async function fetchProjects() {
-        const res = await fetch(`http://localhost:5000/projects`, {
+        const res = await fetch(`http://localhost:8000/projects`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -120,7 +120,7 @@
             // Add new project
             const formData = new FormData(projectForm);
             formData.append('category', document.getElementById('category').value);
-            const res = await fetch(`http://localhost:5000/upload`, {
+            const res = await fetch(`http://localhost:8000/upload`, {
                 method: 'POST',
                 body: formData
             });

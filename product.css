@@ -3,13 +3,12 @@ body{
     
 }
 
+.container{
+    background: radial-gradient(39.1% 83.21% at 57.45% 46.9%, rgba(88, 85, 85, 0) 0%, rgba(0, 0, 0, 0) 35.5%, rgba(0, 0, 0, 0.2) 100%), #749BC2;
+}
 
-
-.navContainer li{
-    font-size: 1.2rem;
-    margin: 0 1.1rem;
-    position: relative;
-    top: -0.3rem;
+.navContainer li, .menu-links li, .mob-menu ul li {
+    color: #FFFBDE !important;
 }
 
 .content{
@@ -53,12 +52,20 @@ section{
 
 
 .productSidebar{
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional subtle border */
+  backdrop-filter: blur(10px); /* Glossy blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 12px; /* Rounded corners for better look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional depth */
+
+  color: white; /* For light-on-dark UI */
+
+
     height: 20rem;
     border-radius: 1.3rem;
     padding: 1.5rem;
     width: 35vw;
-    background-color: #D9D9D9;
-   box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.250);
    max-width: 290px;
    display: flex;
    flex-direction: column;
@@ -69,11 +76,11 @@ section{
     font-weight: bolder;
     margin-bottom: 0.8rem;
     margin-left: 0.3rem;
-    color: #7B7B7B;
+    color: #FFFBDE;
 }
 .productSidebar hr{
     height: 0.3rem;
-    background-color: #A3A3A3;
+    background-color: #FFFBDE;
     margin-bottom: 0.5rem;
     border: 0;
     border-radius: 2rem;
@@ -93,7 +100,7 @@ section{
     
 }
 .price p{
-    color: #59A757;
+    color: #FFFBDE;
     font-size: 1rem;
     font-weight: 600;
 
@@ -107,7 +114,7 @@ section{
 .price h5, .quantityRow h5{
     /* font-size: 0.7rem; */
     font-weight: bold;
-    color: #7B7B7B;
+    color: #FFFBDE;
 }
 
 
@@ -125,10 +132,11 @@ section{
 .quantityControl span{
     padding: 0.4rem 1rem;
     border-radius: 0.8rem;
-    background-color: #808080;
-    color: white;
+    background-color: white;
+    color: #4682A9;
 }
 .quantityControl button{
+    color: #FFFBDE;
     background-color: transparent;
     border: none;
     font-size: 1.1rem;
@@ -179,7 +187,8 @@ section{
 }
 .productBtns button{
     width: 100%;
-    background-color: #A3A3A3;
+    background-color: #749BC2;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.459); /* Optional depth */
     border-radius: 0.4rem;
     /* font-size: 1.2rem; */
     font-weight: bolder;
@@ -249,7 +258,7 @@ scale: 1.05;
 }
 h2{
     /* margin-top: 2rem; */
-    color: #7B7B7B;
+    color: #FFFBDE;
     font-weight: 600!important;
     text-transform: uppercase;
 }
@@ -257,13 +266,24 @@ h2{
     width: 80vw;
     text-wrap: auto;
     max-width: 50rem;
-    color: #7B7B7B;
+    color: #FFFBDE;
     font-weight: 600;
     text-align: justify;
     margin-bottom: 5rem;
 }
 .desc b{
     font-weight: 700;
+}
+footer {
+  background-color: #4682A9;
+}
+
+.footer {
+  background-color: #4682A9;
+}
+
+.footer input {
+  background-color: white;
 }
 @media screen and (max-width: 1200px) {
     section {

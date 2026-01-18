@@ -2,11 +2,8 @@ body{
     background-color: #e5e5e5;
     
 }
-.navContainer li{
-    font-size: 1.2rem;
-    margin: 0 1.1rem;
-    position: relative;
-    top: -0.3rem;
+.navContainer li, .menu-links li, .mob-menu ul li {
+    color: #FFFBDE !important;
 }
 .content *{
     font-family: poppins;
@@ -21,14 +18,17 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
     width: 95vw;
     /* border: 1px solid black; */
-    max-width: 1600px;
-    margin: 3rem 0;
+    max-width: 700px;
+    margin: 20vh 0;
+    /* margin-bottom: 6rem; */
 }
 section div{
     width: 50vw;
+}
+.signupSection{
+    margin: 15vh 0;
 }
 .contactSection{
     display: flex;
@@ -36,6 +36,7 @@ section div{
     justify-content: center;
     align-items: center;
 }
+
 .contactSection h1{
     margin-bottom: 1rem;
     text-transform: uppercase;
@@ -88,74 +89,34 @@ form input[type="submit"]:hover{
     background-color: #3a3a3a;
 }
 
-.socialSection{
-    display: flex;
-    flex-wrap: wrap;
-    /* flex-basis: 50%; */
-    gap: 4rem;
+form p{
+    color: #7B7B7B;
+    font-weight: 600!important;
+    font-size: 1.1rem;
+    letter-spacing: 0.05rem;
 }
-
-.socialSection div, .socialSection a{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap:0.2rem;
-    width: 40%;
-    height: 12rem;
-    border-radius: 1.7rem;
-    max-width: 40%;
-    background-color: #D9D9D9;
-   box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.250);
-   text-decoration: none;
-}
-
-
-.socialSection i{
-    font-size: 7rem;
-    color: #808080;
+form a{
+    color: #7B7B7B;
+    font-weight: 600!important;
     transition: 0.2s all ease;
 }
-
-.socialLink {
-    cursor: pointer;
-}
-.socialLink:hover i{
-    color: #3a3a3a;
+form a:hover{
+    
+    color: #6c6c6c;
 }
 
-.socialSection .get-in-touch i{
-    font-size: 2.5rem;
-}
-.socialSection .get-in-touch h2{
-    font-size: 1.3em;
-    font-weight: bolder;
-}
-.socialSection .get-in-touch p{
-    font-size: 0.75rem;
+footer {
+  background-color: #4682A9;
 }
 
-@media screen and (max-width: 900px) {
-    .socialSection{
-        gap: 3rem;
-    }
-    .socialSection i{
-        font-size: 5rem;
-    }
-    .socialSection div, .socialSection a{
-        height: 10rem;
-    }
-    .socialSection .get-in-touch h2{
-        font-size: 1em;
-    }
-    .socialSection .get-in-touch p{
-        font-size: 0.6rem;
-    }
-    .socialSection .get-in-touch i{
-        font-size: 2rem;
-    }
+.footer {
+  background-color: #4682A9;
 }
+
+.footer input {
+  background-color: white;
+}
+
 
 @media screen and (max-width: 768px) {
     section{
@@ -163,7 +124,7 @@ form input[type="submit"]:hover{
         width: 100vw;
     }
     .contactSection h1{
-        font-size: 1.9rem;
+        font-size: 2rem;
     }
     .contactSection{
         width: 100%;
@@ -171,26 +132,8 @@ form input[type="submit"]:hover{
     .contactSection form{
         width: 86%;
     }
-    .socialSection{
-     width: 95%;
-     align-items: center;
-     flex-direction: column;
-
-    }
-    .socialSection div, .socialSection a{
-        width: 90%;
-        max-width: 90%;
-        max-width: 300px;
-    }
-
-    .socialSection .get-in-touch h2{
-        font-size: 1em;
-    }
-    .socialSection .get-in-touch p{
-        font-size: 0.8rem;
-    }
-    .socialSection .get-in-touch i{
-        font-size: 2rem;
+    form p{
+        font-size: 0.9rem;
     }
 
 }

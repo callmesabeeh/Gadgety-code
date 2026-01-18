@@ -11,28 +11,61 @@ const sharp = require('sharp');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const app = express();
+
 // MongoDB connection with retry logic and proper error handling
 const connectDB = async () => {
+    // Don't try to connect if MONGODB_URI is not set
+    if (!process.env.MONGODB_URI) {
+        console.warn('⚠️  MONGODB_URI not set. Server will run without database connection.');
+        return;
+    }
+
     const maxRetries = 3;
     let retries = 0;
 
     while (retries < maxRetries) {
         try {
             await mongoose.connect(process.env.MONGODB_URI, {
-                serverSelectionTimeoutMS: 5000,
+                serverSelectionTimeoutMS: 10000, // Increased timeout
                 socketTimeoutMS: 45000,
                 dbName: 'Gadgety',
                 retryWrites: true,
                 w: 'majority',
-                maxPoolSize: 10
+                maxPoolSize: 10,
+                // SSL/TLS options to handle connection issues
+                tls: true,
+                tlsAllowInvalidCertificates: false,
+                // Connection pool options
+                minPoolSize: 0,
+                maxIdleTimeMS: 30000,
+                // Retry options
+                retryReads: true
             });
-            console.log('Connected to MongoDB successfully');
+            console.log('✅ Connected to MongoDB successfully');
             return;
         } catch (err) {
             retries++;
-            console.error(`MongoDB connection error (attempt ${retries}/${maxRetries}):`, err);
+            console.error(`❌ MongoDB connection error (attempt ${retries}/${maxRetries}):`, err.message);
+            
+            // Provide helpful error messages
+            if (err.message.includes('whitelist') || err.message.includes('IP')) {
+                console.error('💡 Tip: Make sure your IP address is whitelisted in MongoDB Atlas');
+                console.error('   Go to: https://cloud.mongodb.com → Network Access → Add IP Address');
+            }
+            if (err.message.includes('SSL') || err.message.includes('TLS')) {
+                console.error('💡 Tip: SSL/TLS connection issue. Check your MongoDB connection string.');
+            }
+            
             if (retries === maxRetries) {
-                throw new Error('Failed to connect to MongoDB after multiple attempts');
+                console.error('⚠️  Failed to connect to MongoDB after multiple attempts.');
+                console.error('⚠️  Server will continue running, but database operations will fail.');
+                console.error('⚠️  Please check:');
+                console.error('   1. MongoDB Atlas IP whitelist (allow 0.0.0.0/0 for testing)');
+                console.error('   2. MongoDB connection string in .env file');
+                console.error('   3. Network connectivity');
+                // Don't throw - let server continue without DB
+                return;
             }
             // Wait 5 seconds before retrying
             await new Promise(resolve => setTimeout(resolve, 5000));
@@ -40,8 +73,10 @@ const connectDB = async () => {
     }
 };
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB (non-blocking)
+connectDB().catch(err => {
+    console.error('MongoDB connection failed:', err.message);
+});
 
 // MongoDB connection error handler
 mongoose.connection.on('error', err => {
@@ -56,15 +91,15 @@ const projectSchema = new mongoose.Schema({
     date: String,
     image: String,
     url: String,
-    category: String, // Added category field
+    category: { type: [String], required: true }, // Added category field
     additionalImages: [String]
 });
 
 const Project = mongoose.model('Project', projectSchema);
 
-const app = express();
+
 app.use(cors({
-    origin: ['http://localhost:5501', 'https://gadgety-code.vercel.app', 'https://gadgety-code-frontend.vercel.app'],
+    origin: ['http://localhost:5501', 'https://cornermobile-backend.vercel.app', 'https://cornermobile-frontend.vercel.app'],
     credentials: true
 }));
 app.use(bodyParser.json());
@@ -80,7 +115,7 @@ app.use((req, res, next) => {
     
     // Log request body if present and not a file upload
     if (req.body && !req.is('multipart/form-data')) {
-        console.log(`[${requestId}] Body:`, req.body);
+        console.log(`[${requestId}] Body:`, req.body);  
     }
 
     // Add response logging
@@ -209,6 +244,19 @@ app.post('/upload', upload.array('images'), async (req, res) => {
         const mainImage = req.files.find(file => file.originalname.toLowerCase().includes('main'));
         const mainImageUrl = mainImage ? await uploadToImgBB(mainImage) : images[0];
 
+        // Check if MongoDB is connected
+        if (mongoose.connection.readyState !== 1) {
+            console.error('❌ MongoDB is not connected. Cannot save project.');
+            return res.status(503).json({ 
+                error: 'Database connection unavailable',
+                message: 'MongoDB is not connected. Please check your database connection and try again.',
+                imagesUploaded: {
+                    mainImage: mainImageUrl,
+                    additionalImages: images
+                }
+            });
+        }
+
         const newProject = new Project({
             title: req.body.title,
             description: req.body.description,
@@ -218,6 +266,7 @@ app.post('/upload', upload.array('images'), async (req, res) => {
             image: mainImageUrl,
             url: slug,
             additionalImages: images,
+            category: req.body.category || req.body.category?.[0] || 'uncategorized'
         });
 
         await newProject.save();
@@ -225,6 +274,18 @@ app.post('/upload', upload.array('images'), async (req, res) => {
         res.status(200).send('Project uploaded successfully!');
     } catch (error) {
         console.error('Error uploading project:', error.message);
+        
+        // Check if it's a MongoDB connection error
+        if (error.message.includes('MongoServerSelectionError') || 
+            error.message.includes('connection') ||
+            error.message.includes('MongoNetworkError')) {
+            return res.status(503).json({ 
+                error: 'Database connection error',
+                message: 'Unable to connect to MongoDB. Please check your database connection.',
+                details: error.message
+            });
+        }
+        
         res.status(500).send(`An error occurred while uploading the project: ${error.message}`);
     }
 });

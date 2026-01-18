@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'https://gadgety-code.vercel.app/projects', true);
+http.open('get', 'https://cornermobile-backend-f137sj34j-sabeehs-projects-b0bc3c31.vercel.app/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
@@ -22,6 +22,8 @@ http.onload = function(){
       }
       let sortedProducts = initialSort(products);
       let output = "";
+
+      
       for(let item of sortedProducts){
          const baseUrl = item.image.substring(0, item.image.lastIndexOf('.'));
          const newUrl = `${baseUrl}_d.webp?maxwidth=750`;
@@ -42,7 +44,7 @@ http.onload = function(){
                     `;
       }
       document.querySelector(".slider-products").innerHTML = output;
-      document.querySelector(".all-products").innerHTML = output;
+      document.getElementById('all-projects').innerHTML = output;
 
       // Populate categories in the select
       const categorySelect = document.getElementById('category-select');
@@ -83,7 +85,8 @@ http.onload = function(){
                     </a>
                     `;
         }
-        document.querySelector(".all-products").innerHTML = filteredOutput;
+        document.getElementById("all-projects").innerHTML = filteredOutput;
+
       }
       function getFilteredAndSortedProducts() {
         let query = searchInput ? searchInput.value.toLowerCase() : "";

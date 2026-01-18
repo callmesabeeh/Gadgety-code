@@ -96,6 +96,22 @@ img.animate{
     box-shadow: 12px 14px 12px rgba(0, 0, 0, 0.3);
 }
 
+.navContainer li, .menu-links li, .mob-menu ul li {
+    color: #FFFBDE !important;
+}
+
+footer {
+  background-color: #4682A9;
+}
+
+.footer {
+  background-color: #4682A9;
+}
+
+.footer input {
+  background-color: white;
+}
+
 
 @media screen and (max-width: 1150px) {
     .content h2{
@@ -111,11 +127,16 @@ img.animate{
         top: -14vh;
     }
   }
-  
+@media screen and (max-width: 1026px) {
+    .content h2{
+      right: 23vw;
+    }
+  }
+
 @media screen and (max-width: 768px) {
     img{
         position: absolute;
-        left: 0;
+   
         bottom: 0;
     }
 .content{
@@ -132,6 +153,7 @@ line-height: 4.1rem;
 font-weight:500;
 
 }
+
 .content h2 span{
     font-size: 3.4rem;
 }

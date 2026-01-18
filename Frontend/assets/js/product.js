@@ -3,7 +3,7 @@ const searchParams = new URLSearchParams(window.location.search);
 if(searchParams.has('_id')){
     let url_product_id = searchParams.get('_id');
     let http = new XMLHttpRequest();
-    http.open('get', 'https://gadgety-code.vercel.app/projects', true);
+    http.open('get', 'https://cornermobile-backend-f137sj34j-sabeehs-projects-b0bc3c31.vercel.app/projects', true);
     http.send();
     http.onload = function(){
         if(this.readyState == 4 && this.status == 200){

@@ -1,12 +1,14 @@
+/* Make placeholder text white for all inputs and textarea */
+form input::placeholder, form textarea::placeholder {
+  color: white;
+  opacity: 1;
+}
 body{
     background-color: #e5e5e5;
     
 }
-.navContainer li{
-    font-size: 1.2rem;
-    margin: 0 1.1rem;
-    position: relative;
-    top: -0.3rem;
+.navContainer li, .menu-links li, .mob-menu ul li {
+    color: #FFFBDE !important;
 }
 .content *{
     font-family: poppins;
@@ -39,10 +41,15 @@ section div{
 .contactSection h1{
     margin-bottom: 1rem;
     text-transform: uppercase;
+    color: #FFFBDE;
     font-size: 2.3rem;
     text-align: center;
 }
+.container{
+    /* background-color: #91C8E4; */
+background: radial-gradient(39.1% 83.21% at 57.45% 46.9%, rgba(88, 85, 85, 0) 0%, rgba(0, 0, 0, 0) 35.5%, rgba(0, 0, 0, 0.2) 100%), #749BC2;
 
+}
 .contactSection form{
     display: flex;
     flex-direction: column;
@@ -52,11 +59,21 @@ section div{
     width: 80%;
 }
 form input:not(input[type="submit"]) , form textarea{
-    background-color: #D9D9D9;
-    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.250);
+  
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional subtle border */
+  backdrop-filter: blur(10px); /* Glossy blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 12px; /* Rounded corners for better look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional depth */
+  
+  color: white; /* For light-on-dark UI */
+
+
+   
     border: 0;
     padding: 0.5rem 1rem;
-    border-radius: 0.7rem;
+
     width: 100%;
     transition: 0.2s all ease;
 }
@@ -75,7 +92,7 @@ form input[type="submit"]{
     color: white;
     font-weight: bold;
     padding: 0.5rem 0;
-    background-color: #A3A3A3;
+    background-color: #749BC2;
     border: 0;
     border-radius: 0.5rem;
     font-size: 1.1rem;
@@ -106,15 +123,23 @@ form input[type="submit"]:hover{
     height: 12rem;
     border-radius: 1.7rem;
     max-width: 40%;
-    background-color: #D9D9D9;
-   box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.250);
    text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional subtle border */
+  backdrop-filter: blur(10px); /* Glossy blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 12px; /* Rounded corners for better look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional depth */
+  
+
+
 }
 
 
 .socialSection i{
     font-size: 7rem;
-    color: #808080;
+    color: #FFFBDE;
     transition: 0.2s all ease;
 }
 
@@ -126,13 +151,16 @@ form input[type="submit"]:hover{
 }
 
 .socialSection .get-in-touch i{
+    color: #FFFBDE;
     font-size: 2.5rem;
 }
 .socialSection .get-in-touch h2{
     font-size: 1.3em;
+    color: #FFFBDE;
     font-weight: bolder;
 }
 .socialSection .get-in-touch p{
+    color: #FFFBDE;
     font-size: 0.75rem;
 }
 
@@ -193,4 +221,16 @@ form input[type="submit"]:hover{
         font-size: 2rem;
     }
 
+}
+
+footer {
+  background-color: #4682A9;
+}
+
+.footer {
+  background-color: #4682A9;
+}
+
+.footer input {
+  background-color: white;
 }

@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'https://gadgety-code.vercel.app/projects', true);
+http.open('get', 'hhttps://cornermobile-backend-f137sj34j-sabeehs-projects-b0bc3c31.vercel.app/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
@@ -44,13 +44,13 @@ function sendCartToWhatsApp(productsArg) {
         });
         message += `\nTotal: PKR ${total}`;
         const encoded = encodeURIComponent(message);
-        window.open(`https://wa.me/+923225541094?text=${encoded}`, "_blank");
+        window.open(`https://wa.me/+923116914369?text=${encoded}`, "_blank");
     }
     if (products && products.length) {
         doSend(products);
     } else {
         // Fallback: fetch products data
-        fetch('https://gadgety-code.vercel.app/projects')
+        fetch('https://cornermobile-backend-f137sj34j-sabeehs-projects-b0bc3c31.vercel.app/projects')
             .then(res => res.json())
             .then(data => doSend(data))
             .catch(() => alert('Could not load product data.'));

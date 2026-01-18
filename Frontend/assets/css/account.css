@@ -2,8 +2,11 @@ body{
     background-color: #e5e5e5;
     
 }
-.navContainer li, .menu-links li, .mob-menu ul li {
-    color: #FFFBDE !important;
+.navContainer li{
+    font-size: 1.2rem;
+    margin: 0 1.1rem;
+    position: relative;
+    top: -0.3rem;
 }
 .content *{
     font-family: poppins;
@@ -103,18 +106,6 @@ form a{
 form a:hover{
     
     color: #6c6c6c;
-}
-
-footer {
-  background-color: #4682A9;
-}
-
-.footer {
-  background-color: #4682A9;
-}
-
-.footer input {
-  background-color: white;
 }
 
 
