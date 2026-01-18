@@ -1,5 +1,5 @@
 let http = new XMLHttpRequest();
-http.open('get', 'https://cornermobile-backend-f137sj34j-sabeehs-projects-b0bc3c31.vercel.app/projects', true);
+http.open('get', 'https://api.cornermobile.com.pk/projects', true);
 http.send();
 http.onload = function(){
    if(this.readyState == 4 && this.status == 200){
