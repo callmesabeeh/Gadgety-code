@@ -99,7 +99,7 @@ const Project = mongoose.model('Project', projectSchema);
 
 
 app.use(cors({
-    origin: ['http://localhost:5501', 'https://cornermobile-backend.vercel.app', 'https://cornermobile-frontend.vercel.app', 'https://api.cornermobile.com.pk'],
+    origin: ['http://localhost:5501', 'https://cornermobile-backend.vercel.app', 'https://cornermobile-frontend.vercel.app', 'https://api.cornermobile.com.pk', 'https://www.cornermobile.com.pk'],
     credentials: true
 }));
 app.use(bodyParser.json());
