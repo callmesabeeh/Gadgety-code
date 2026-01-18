@@ -133,6 +133,7 @@ app.use(express.static(__dirname));
 
 // Serve index.html at root
 app.get('/', (req, res) => {
+    console.log('Root route accessed, serving index.html');
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -217,6 +218,7 @@ function delay(ms) {
 
 // Handle project uploads
 app.post('/upload', upload.array('images'), async (req, res) => {
+    console.log('Upload endpoint accessed');
     try {
         console.log('Received upload request:', {
             body: req.body,
@@ -270,6 +272,7 @@ app.post('/upload', upload.array('images'), async (req, res) => {
         });
 
         await newProject.save();
+        console.log('Project saved successfully:', newProject.title);
 
         res.status(200).send('Project uploaded successfully!');
     } catch (error) {
@@ -293,8 +296,10 @@ app.post('/upload', upload.array('images'), async (req, res) => {
 
 // Get all projects
 app.get('/projects', async (req, res) => {
+    console.log('Projects endpoint accessed');
     try {
         const projects = await Project.find().lean();
+        console.log('Found projects:', projects.length);
         const mappedProjects = projects.map(project => ({
             ...project,
             id: project._id.toString(),
