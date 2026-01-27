@@ -97,11 +97,36 @@ const projectSchema = new mongoose.Schema({
 
 const Project = mongoose.model('Project', projectSchema);
 
+const allowedOrigins = [
+  "https://cornermobile.com.pk",
+  "https://www.cornermobile.com.pk",
+  "https://api.cornermobile.com.pk",
+  "https://cornermobile-backend.vercel.app",
+  "https://cornermobile-frontend.vercel.app",
+  "http://localhost:8000",
+  "http://localhost:5500"
+];
 
 app.use(cors({
-    origin: ['https://cornermobile-backend.vercel.app', 'https://cornermobile-frontend.vercel.app', 'https://api.cornermobile.com.pk', 'https://www.cornermobile.com.pk'],
-    credentials: true
+  origin: function (origin, callback) {
+    // allow server-to-server & Postman
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.error("❌ Blocked by CORS:", origin);
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// 🔥 THIS LINE IS THE REAL FIX (DO NOT SKIP)
+app.options("*", cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
