@@ -8,18 +8,140 @@
 <body>
     <title>Project CRUD Interface</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
-        h1 { color: #333; }
-        .container { background: #312d2d; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; max-width: 800px; margin: auto; }
-        .form-group { margin-bottom: 16px; }
-        label { display: block; margin-bottom: 6px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 8px 16px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; margin-right: 8px; }
-        button.delete { background: #dc3545; }
-        .project-list { margin-top: 32px; }
-        .project { background: #f1f1f1; padding: 16px; border-radius: 6px; margin-bottom: 12px; }
-        .project img { max-width: 120px; max-height: 120px; display: block; margin-bottom: 8px; }
-    </style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px;
+    background: #121212;
+    color: #eaeaea;
+  }
+
+  h1, h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #2e2e2e;
+    margin: 30px 0;
+  }
+
+  .container {
+    background: #1e1e1e;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #dcdcdc;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #2a2a2a;
+    color: #ffffff;
+    font-size: 14px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #999;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: #4da3ff;
+    box-shadow: 0 0 0 1px rgba(77, 163, 255, 0.4);
+  }
+
+  button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #4da3ff;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background: #2f8cff;
+  }
+
+  button.delete {
+    background: #e14c4c;
+  }
+
+  button.delete:hover {
+    background: #c73737;
+  }
+
+  #addCategoryBtn {
+    margin-left: 10px;
+  }
+
+  .project-list {
+    margin-top: 30px;
+  }
+
+  .project {
+    background: #262626;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    border: 1px solid #333;
+  }
+
+  .project strong {
+    font-size: 16px;
+    color: #ffffff;
+  }
+
+  .project em {
+    display: block;
+    margin: 6px 0;
+    color: #b5b5b5;
+  }
+
+  .project img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+  }
+
+  .project button {
+    margin-right: 8px;
+    margin-top: 6px;
+  }
+</style>
+
     <div class="container">          
         <h1>Project CRUD Interface</h1>
         <form id="projectForm">
