@@ -97,22 +97,25 @@ const projectSchema = new mongoose.Schema({
 
 const Project = mongoose.model('Project', projectSchema);
 
-const allowedOrigins = [
-  "https://cornermobile.com.pk",
-  "https://www.cornermobile.com.pk",
-  "https://api.cornermobile.com.pk",
-  "https://cornermobile-backend.vercel.app",
-  "https://cornermobile-frontend.vercel.app",
-  "http://localhost:8000",
-  "http://localhost:5500"
-];
-
 app.use(cors({
   origin: function (origin, callback) {
-    // allow server-to-server & Postman
+    // Allow server-to-server, Postman, cron jobs
     if (!origin) return callback(null, true);
 
+    const allowedOrigins = [
+      "https://cornermobile.com.pk",
+      "https://www.cornermobile.com.pk",
+      "https://api.cornermobile.com.pk",
+      "https://cornermobile-backend.vercel.app"
+    ];
+
+    // ✅ Allow exact known domains
     if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // ✅ Allow ALL Vercel preview deployments
+    if (origin.endsWith(".vercel.app")) {
       return callback(null, true);
     }
 
@@ -123,6 +126,10 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// ✅ REQUIRED FOR PREFLIGHT REQUESTS
+app.options("*", cors());
+
 
 // 🔥 THIS LINE IS THE REAL FIX (DO NOT SKIP)
 app.options("*", cors());
