@@ -12,13 +12,13 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const cors = require("cors");
 
+// ✅ SIMPLE, WORKING CORS
 app.use(cors({
   origin: "*"
 }));
-
 app.options("*", cors());
+
 
 // MongoDB connection with retry logic and proper error handling
 const connectDB = async () => {
