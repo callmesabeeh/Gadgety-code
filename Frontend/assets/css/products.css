@@ -481,3 +481,17 @@ transform: scale(1.03);
 .product {
     height: 100%;
 }
+/* FIX Flash Sale product title sideways expansion */
+.slider-products .product .product-name {
+    width: 11.3rem;          /* SAME as image width */
+    max-width: 11.3rem;
+
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* max 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
