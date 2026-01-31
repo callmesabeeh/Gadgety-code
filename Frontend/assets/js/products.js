@@ -25,8 +25,8 @@ http.onload = function(){
 
       
       for(let item of sortedProducts){
-         const baseUrl = item.image.substring(0, item.image.lastIndexOf('.'));
-         const newUrl = `${baseUrl}_d.webp?maxwidth=750`;
+      const newUrl = item.image;
+
          output += `<a href="/product/?_id=${item.url}">
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
