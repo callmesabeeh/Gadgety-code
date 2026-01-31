@@ -357,60 +357,55 @@ transform: scale(1.03);
 }
 
 /* service section */
-
-.services{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10rem 0;
-    gap: 4rem;
-}
-
-.services .service{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.services span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2rem;
-    height: 2rem;
-    padding: 1.2rem;
-    border-radius: 100%;
-    background-color: black;
-    color: white;
-    border: 8px solid #aeaeaf;
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-}
-
-.services h4{
-    font-family: poppins;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-}
-.services p{
-    font-family: poppins;
-    font-weight: 400;
-    font-size: 0.6rem;
-}
-
-/* FIX: Services section alignment & background */
+/* SERVICES SECTION FIX */
 .services {
-    background-color: #E5E5E5;
-    padding: 4rem 1rem;
-    margin: 6rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+
+    background-color: #E5E5E5; /* SAME as section */
+    padding: 5rem 2rem;
+    margin: 0;
 }
 
 .services .service {
-    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    max-width: 220px;
+}
+
+.services span {
+    width: 3.2rem;
+    height: 3.2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 1.3rem;
+
+    margin-bottom: 1rem;
+
+    border: none; /* REMOVE ring */
+}
+
+.services h4 {
+    font-family: poppins;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.services p {
+    font-family: poppins;
+    font-size: 0.65rem;
+    color: #555;
 }
 
 
@@ -429,6 +424,13 @@ transform: scale(1.03);
         }
        
   }
+  @media screen and (max-width: 768px) {
+    .services {
+        flex-direction: column;
+        gap: 3rem;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .content h2{
         font-size: 1.7rem;
