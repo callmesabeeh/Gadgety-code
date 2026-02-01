@@ -392,8 +392,11 @@ transform: scale(1.03);
 
     margin-bottom: 1rem;
 
-    border: none; /* REMOVE ring */
+    /* GREY OUTLINE RING (Gadgetyy style) */
+    box-shadow: 0 0 0 8px #d1d1d1
+
 }
+
 
 .services h4 {
     font-family: poppins;

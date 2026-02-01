@@ -33,16 +33,24 @@ function sendCartToWhatsApp(productsArg) {
     }
     function doSend(productsList) {
         let message = `🛒 *Cart Details*:\n*Name:* ${name}\n*Email:* ${email}\n*Address:* ${address}\n\n`;
-        let total = 0;
-        cart.forEach((item, idx) => {
-            let info = productsList.find(p => p.id == item.product_id);
-            if (info) {
-                let line = `${idx + 1}. ${info.title} x${item.quantity} - PKR ${info.discountedPrice * item.quantity}\n`;
-                message += line;
-                total += info.discountedPrice * item.quantity;
-            }
-        });
-        message += `\nTotal: PKR ${total}`;
+        let subtotal = 0;
+      cart.forEach((item, idx) => {
+    let info = productsList.find(p => p.id == item.product_id);
+    if (info) {
+        let itemTotal = info.discountedPrice * item.quantity;
+        let line = `${idx + 1}. ${info.title} x${item.quantity} - PKR ${itemTotal}\n`;
+        message += line;
+        subtotal += itemTotal;
+    }
+});
+
+       let grandTotal = subtotal + DELIVERY_CHARGE;
+
+message += `\nSubtotal: PKR ${subtotal}`;
+message += `\nDelivery: PKR ${DELIVERY_CHARGE}`;
+message += `\n--------------------`;
+message += `\nTotal: PKR ${grandTotal}`;
+        message += `\n\nThank you for shopping with us!`;
         const encoded = encodeURIComponent(message);
         window.open(`https://wa.me/+923116914369?text=${encoded}`, "_blank");
     }

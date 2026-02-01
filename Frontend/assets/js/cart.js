@@ -1,5 +1,7 @@
 var cart = [];
 var cartQty = 0;
+const DELIVERY_CHARGE = 250;
+
 if(localStorage.getItem('cart')){
     cart = JSON.parse(localStorage.getItem('cart'));
   
