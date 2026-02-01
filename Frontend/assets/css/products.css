@@ -358,16 +358,16 @@ transform: scale(1.03);
 
 /* service section */
 /* SERVICES SECTION FIX */
-.services {
+.services{
+    background-color: #EFEFEF;   /* clean neutral block like Gadgety */
+    padding: 6rem 0;             /* BIG vertical breathing space */
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6rem;
-
-    background-color: #E5E5E5; /* SAME as section */
-    padding: 5rem 2rem;
-    margin: 0;
+    gap: 6rem;                   /* horizontal spacing between items */
+    margin-top: 6rem;            /* space from products */
 }
+
 
 .services .service {
     display: flex;
@@ -377,37 +377,33 @@ transform: scale(1.03);
     max-width: 220px;
 }
 
-.services span {
-    width: 3.2rem;
-    height: 3.2rem;
+.services span{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background-color: black;
-    color: white;
-    border-radius: 50%;
     font-size: 1.3rem;
 
+    border: 6px solid #CFCFCF;  /* grey ring (missing before) */
     margin-bottom: 1rem;
-
-    /* GREY OUTLINE RING (Gadgetyy style) */
-    box-shadow: 0 0 0 8px #d1d1d1
-
 }
 
 
-.services h4 {
-    font-family: poppins;
+
+.services h4{
+    font-size: 0.9rem;
     font-weight: 600;
-    font-size: 0.85rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
 }
 
-.services p {
-    font-family: poppins;
-    font-size: 0.65rem;
+.services p{
+    font-size: 0.75rem;
     color: #555;
 }
 
@@ -431,6 +427,7 @@ transform: scale(1.03);
     .services {
         flex-direction: column;
         gap: 3rem;
+        padding: 4rem 1rem;
     }
 }
 
