@@ -1,7 +1,8 @@
 const searchParams = new URLSearchParams(window.location.search);
 
-if(searchParams.has('_id')){
-    let url_product_id = searchParams.get('_id');
+if(searchParams.has('slug')){
+    let url_product_id = searchParams.get('slug');
+
     let http = new XMLHttpRequest();
     http.open('get', 'https://api.cornermobile.com.pk/projects', true);
     http.send();
