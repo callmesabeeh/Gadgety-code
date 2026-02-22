@@ -12,7 +12,8 @@ if(searchParams.has('slug')){
             let products = JSON.parse(this.responseText);
             // Map _id to id for consistency
             products = products.map(item => ({ ...item, id: item.id || item._id }));
-            let result = products.find(item => item.url === url_product_id);
+            let result = products.find(item => item.id === url_product_id);
+
             if (!result) {
                 alert('Product not found!');
                 return;

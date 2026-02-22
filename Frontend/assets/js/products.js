@@ -27,7 +27,8 @@ http.onload = function(){
       for(let item of sortedProducts){
       const newUrl = item.image;
 
-         output += `<a href="/product/?slug=${product.url}">
+         output += `<a href="/product/?_id=${item.id}">
+
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
                             <span class="discount">${Math.floor(((item.price - item.discountedPrice) / item.price) * 100)}%</span>
