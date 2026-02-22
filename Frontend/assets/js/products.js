@@ -51,7 +51,7 @@ http.onload = function(){
       const categorySelect = document.getElementById('category-select');
       const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
       categorySelect.innerHTML = '<option value="all">All Categories</option>';
-      
+
 categories.sort().forEach(cat => {
     if (typeof cat === "string") {
         const option = document.createElement('option');
@@ -72,7 +72,7 @@ categories.sort().forEach(cat => {
         for(let item of list){
           const baseUrl = item.image.substring(0, item.image.lastIndexOf('.'));
           const newUrl = `${baseUrl}_d.webp?maxwidth=750`;
-          filteredOutput += `<a href="/product/?_id=${item.url}">
+          filteredOutput += `<a href="/product/?_id=${item.id}">
                      <div class="product">
                         <div class="product-img" style="background-image:url('${newUrl}');">
                             <span class="discount">${Math.floor(((item.price - item.discountedPrice) / item.price) * 100)}%</span>
