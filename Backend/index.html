@@ -163,11 +163,10 @@
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <select id="category" name="category">
-                    <option value="earbuds">Earbuds</option>
-                    <option value="cases">Cases</option>
-                    <option value="charger">Charger</option>
-                </select>
+                <select id="category"></select>
+
+<input type="text" id="new-category" placeholder="Or add new category">
+
                 <button type="button" id="addCategoryBtn">Add Category</button>
             </div>
             <div class="form-group">
@@ -184,6 +183,20 @@
 
     <script>
     // Helper to fetch and display all projects
+    fetch('https://api.cornermobile.com.pk/categories')
+  .then(res => res.json())
+  .then(categories => {
+      const select = document.getElementById('category');
+
+      select.innerHTML = '<option value="">Select Category</option>';
+
+      categories.forEach(cat => {
+          const option = document.createElement('option');
+          option.value = cat;
+          option.textContent = cat;
+          select.appendChild(option);
+      });
+  });
     async function fetchProjects() {
         const res = await fetch(`https://api.cornermobile.com.pk/projects`, {
             method: 'GET',
@@ -241,7 +254,13 @@
         } else {
             // Add new project
             const formData = new FormData(projectForm);
-            formData.append('category', document.getElementById('category').value);
+           const selectedCategory = document.getElementById('category').value;
+const newCategory = document.getElementById('new-category').value;
+
+const finalCategory = newCategory || selectedCategory;
+
+formData.append('category', finalCategory);
+
             const res = await fetch(`https://api.cornermobile.com.pk/upload`, {
                 method: 'POST',
                 body: formData

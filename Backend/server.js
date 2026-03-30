@@ -403,3 +403,20 @@ if (require.main === module) {
     });
   });
 }
+app.get('/categories', async (req, res) => {
+    try {
+        const projects = await Project.find({}, 'category');
+
+        const categories = Array.from(
+            new Set(
+                projects.flatMap(p =>
+                    Array.isArray(p.category) ? p.category : []
+                )
+            )
+        );
+
+        res.json(categories);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
