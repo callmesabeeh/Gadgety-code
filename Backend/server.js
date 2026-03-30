@@ -273,7 +273,9 @@ app.post('/upload', upload.array('images'), async (req, res) => {
             image: mainImageUrl,
             url: slug,
             additionalImages: images,
-            category: req.body.category || req.body.category?.[0] || 'uncategorized'
+           category: Array.isArray(req.body.category)
+  ? req.body.category
+  : [req.body.category || "uncategorized"]
         });
 
         await newProject.save();
