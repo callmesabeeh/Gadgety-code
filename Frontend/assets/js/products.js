@@ -49,7 +49,13 @@ http.onload = function(){
 
       // Populate categories in the select
       const categorySelect = document.getElementById('category-select');
-      const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
+     const categories = Array.from(
+  new Set(
+    products.flatMap(p =>
+      Array.isArray(p.category) ? p.category : []
+    )
+  )
+);
       categorySelect.innerHTML = '<option value="all">All Categories</option>';
 
 categories.sort().forEach(cat => {
@@ -97,7 +103,11 @@ categories.sort().forEach(cat => {
         let filtered = products.filter(item => {
           let matchesSearch = item.title.toLowerCase().includes(query);
           let matchesCategory = selectedCategory === "all" || 
-                              (item.category && item.category.toLowerCase() === selectedCategory.toLowerCase());
+                              (Array.isArray(item.category) &&
+ item.category.some(cat =>
+   typeof cat === "string" &&
+   cat.toLowerCase() === selectedCategory.toLowerCase()
+ ))
           return matchesSearch && matchesCategory;
         });
         // Robust sorting by discountedPrice, handling missing or invalid values
