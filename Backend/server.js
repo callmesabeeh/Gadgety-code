@@ -232,7 +232,7 @@ app.post('/upload', upload.array('images'), async (req, res) => {
         const projectTitle = req.body.title.replace(/\s+/g, '_').toLowerCase();
         const slug = generateSlug(projectTitle);
         const today = new Date().toISOString().slice(0, 10);
-
+const coverIndex = Number(req.body.coverIndex || 0);
         // Upload each image to ImgBB with a 1-second delay between uploads
         const images = [];
         for (const file of req.files) {
@@ -247,9 +247,8 @@ app.post('/upload', upload.array('images'), async (req, res) => {
             }
         }
 
-        // Determine the main image
-        const mainImage = req.files.find(file => file.originalname.toLowerCase().includes('main'));
-        const mainImageUrl = mainImage ? await uploadToImgBB(mainImage) : images[0];
+// Use selected cover image
+const mainImageUrl = images[coverIndex] || images[0];
 
         // Check if MongoDB is connected
         if (mongoose.connection.readyState !== 1) {
