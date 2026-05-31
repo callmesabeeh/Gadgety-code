@@ -172,6 +172,7 @@
             <div class="form-group">
                 <label for="images">Images (select multiple)</label>
                 <input type="file" id="images" name="images" multiple accept="image/*">
+                <div id="coverSelector"></div>
             </div>
             <button type="submit">Add Project</button>
         </form>
@@ -254,6 +255,13 @@
         } else {
             // Add new project
             const formData = new FormData(projectForm);
+
+            const selectedCover =
+    document.querySelector('input[name="coverImage"]:checked');
+
+if (selectedCover) {
+    formData.append('coverIndex', selectedCover.value);
+}
            const selectedCategory = document.getElementById('category').value;
 const newCategory = document.getElementById('new-category').value;
 
@@ -269,6 +277,10 @@ formData.append('category', finalCategory);
                 alert('Project added!');
                 projectForm.reset();
                 fetchProjects();
+
+
+// Initial load
+fetchProjects();
             } else {
                 alert('Error adding project');
             }
@@ -315,7 +327,29 @@ formData.append('category', finalCategory);
             alert('Error deleting project');
         }
     };
+    
 
+
+   document.getElementById('images').addEventListener('change', function () {
+
+    const container = document.getElementById('coverSelector');
+
+    container.innerHTML = '<h4>Select Cover Image</h4>';
+
+    Array.from(this.files).forEach((file, index) => {
+
+        container.innerHTML += `
+            <label style="display:block; margin:5px 0;">
+                <input type="radio"
+                       name="coverImage"
+                       value="${index}"
+                       ${index === 0 ? 'checked' : ''}>
+                ${file.name}
+            </label>
+        `;
+    });
+
+});
     // Initial load
     fetchProjects();
     </script>
